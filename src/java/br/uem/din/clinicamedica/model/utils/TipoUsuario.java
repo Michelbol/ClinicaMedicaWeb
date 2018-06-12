@@ -23,7 +23,7 @@ public enum TipoUsuario implements menu{
 
         @Override
         public String menuPaciente() {
-            return "MEDICO/consultapacientes";
+            return "consultapaciente";
         }
         
         @Override

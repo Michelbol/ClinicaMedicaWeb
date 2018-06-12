@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <head>
+        <title>Clinica Médica</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h1>Prontuários</h1>
+            <br />
+            <br />
+            <h:form id='menu'>
+                <h:commandButton id='btNovoProntuario' value='Pacientes' action="#{ProntuarioBean.consultaPacientes(request)}"></h:commandButton>
+                <br />
+                <h:message for="pacientes"></h:message>
+            </h:form>
+            <br />
+            <h:dataTable value="#{ProntuarioBean.listarProntuarios()}" var="paciente">
+                <h:column>
+                    <f:facet name="header">
+                        Nome
+                    </f:facet>
+                    #{paciente.nome}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Endereço
+                    </f:facet>
+                    #{paciente.endereco}
+                </h:column>
+
+            </h:dataTable>
+    </body>
+</html>
