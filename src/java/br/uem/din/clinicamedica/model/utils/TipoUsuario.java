@@ -7,8 +7,6 @@ package br.uem.din.clinicamedica.model.utils;
 
 import br.uem.din.clinicamedica.model.Consulta;
 import br.uem.din.clinicamedica.model.Paciente;
-import br.uem.din.clinicamedica.model.Prontuario;
-import br.uem.din.clinicamedica.model.Usuario;
 import java.util.Date;
 import java.util.List;
 
@@ -28,59 +26,65 @@ public enum TipoUsuario implements menu{
             return "MEDICO/consultapacientes";
         }
         
-        public void menuProntuario(List<Prontuario> li_prontuario,List<Paciente> li_paciente,Usuario usuarioLogado){
+        @Override
+        public String incluir() {
+           return "incluir";
+        }
+
+        @Override
+        public String editar(int i) {
+            return "excluir";
+        }
+
+        @Override
+        public void salvar(){
             
         }
 
         @Override
-        public Paciente menuCadastrarPaciente() {
-            return null;
+        public void atualizar(int id){
+            
         }
-
+        
         @Override
-        public Paciente menuAlteracoesPaciente(Paciente p) {
-            return null;
-        }
-
-        @Override
-        public Paciente menuSalvarAtributo(int i, Paciente p) {
-            return null;
-        }
-
-        @Override
-        public Paciente menuAtualizarAtributo(int i, Paciente p) {
-            return null;
+        public String excluir(int id){
+            return "excluir";
         }
       
     }, Secretaria{
         @Override
         public String menu() {
-            return "SECRETARIA/menu";
+            return "SECRETARIA/menu.xhtml";
         }
 
         @Override
         public String menuPaciente() {
-            return "SECRETARIA/consultapaciente";
+            return "SECRETARIA/consultapaciente.xhtml";
         }
 
         @Override
-        public Paciente menuCadastrarPaciente() {
-           return null;
+        public String incluir() {
+           return "incluir";
         }
 
         @Override
-        public Paciente menuAlteracoesPaciente(Paciente p) {
-            return null;
+        public String editar(int i) {
+            return "editar";
         }
 
         @Override
-        public Paciente menuSalvarAtributo(int i, Paciente p) {
-            return null;
+        public void salvar(){
+            
         }
 
         @Override
-        public Paciente menuAtualizarAtributo(int i, Paciente p) {
-            return null;
+        public void atualizar(int id){
+            
+        }
+        
+        @Override
+        public String excluir(int id){
+            return "excluir";
         }
         
     };

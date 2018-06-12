@@ -5,9 +5,6 @@
  */
 package br.uem.din.clinicamedica.model.utils;
 
-
-import br.uem.din.clinicamedica.model.Paciente;
-
 /**
  *
  * @author miche
@@ -18,11 +15,13 @@ public interface menu {
     
     public abstract String menuPaciente();
     
-    public abstract Paciente menuCadastrarPaciente();
+    public abstract String incluir();
     
-    public abstract Paciente menuAlteracoesPaciente(Paciente p);
+    public abstract String editar(int id);
     
-    public abstract Paciente menuSalvarAtributo(int i, Paciente p);
+    public abstract void salvar();
     
-    public abstract Paciente menuAtualizarAtributo(int i, Paciente p);
+    public abstract void atualizar(int id);
+    
+    public abstract String excluir(int id);
 }

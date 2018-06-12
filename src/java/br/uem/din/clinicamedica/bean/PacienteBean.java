@@ -14,11 +14,12 @@ import br.uem.din.clinicamedica.controller.PacienteController;
 import br.uem.din.clinicamedica.model.Paciente;
 import br.uem.din.clinicamedica.model.Usuario;
 import br.uem.din.clinicamedica.model.utils.Endereco;
+import br.uem.din.clinicamedica.model.utils.Telefone;
+import br.uem.din.clinicamedica.model.utils.TipoConvenio;
+import java.util.Date;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,8 +27,32 @@ import javax.servlet.http.HttpSession;
 @ManagedBean(name = "PacienteBean")
 @RequestScoped
 public class PacienteBean {
+    private int id;
     private String nome;
+    private String sobrenome;
+    private String cpf;
+    private String rg;
+    private Date dataNascimento;
     private Endereco endereco;
+    private Telefone residencial;
+    private Telefone celular;
+    private String email;
+    private TipoConvenio tipoconvenio;
+    private boolean isFumante;
+    private boolean isAlcolatra;
+    private boolean isColesterol;
+    private boolean isDiabetico;
+    private String doencasCardiacas;
+    private String cirurgias;
+    private String alergias;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -35,6 +60,38 @@ public class PacienteBean {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public Endereco getEndereco() {
@@ -45,6 +102,97 @@ public class PacienteBean {
         this.endereco = endereco;
     }
 
+    public Telefone getResidencial() {
+        return residencial;
+    }
+
+    public void setResidencial(Telefone residencial) {
+        this.residencial = residencial;
+    }
+
+    public Telefone getCelular() {
+        return celular;
+    }
+
+    public void setCelular(Telefone celular) {
+        this.celular = celular;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public TipoConvenio getTipoconvenio() {
+        return tipoconvenio;
+    }
+
+    public void setTipoconvenio(TipoConvenio tipoconvenio) {
+        this.tipoconvenio = tipoconvenio;
+    }
+
+    public boolean isIsFumante() {
+        return isFumante;
+    }
+
+    public void setIsFumante(boolean isFumante) {
+        this.isFumante = isFumante;
+    }
+
+    public boolean isIsAlcolatra() {
+        return isAlcolatra;
+    }
+
+    public void setIsAlcolatra(boolean isAlcolatra) {
+        this.isAlcolatra = isAlcolatra;
+    }
+
+    public boolean isIsColesterol() {
+        return isColesterol;
+    }
+
+    public void setIsColesterol(boolean isColesterol) {
+        this.isColesterol = isColesterol;
+    }
+
+    public boolean isIsDiabetico() {
+        return isDiabetico;
+    }
+
+    public void setIsDiabetico(boolean isDiabetico) {
+        this.isDiabetico = isDiabetico;
+    }
+
+    public String getDoencasCardiacas() {
+        return doencasCardiacas;
+    }
+
+    public void setDoencasCardiacas(String doencasCardiacas) {
+        this.doencasCardiacas = doencasCardiacas;
+    }
+
+    public String getCirurgias() {
+        return cirurgias;
+    }
+
+    public void setCirurgias(String cirurgias) {
+        this.cirurgias = cirurgias;
+    }
+
+    public String getAlergias() {
+        return alergias;
+    }
+
+    public void setAlergias(String alergias) {
+        this.alergias = alergias;
+    }
+
+    
+    
+
     public String consultaPacientes(ServletRequest request){
         HttpSession sess = ((HttpServletRequest) request).getSession(true);
         Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
@@ -53,5 +201,23 @@ public class PacienteBean {
     
     public List<Paciente> listarPacientes(){
         return PacienteController.getInstance().listarPacientes();
+    }
+    
+    public String incluir(ServletRequest request){
+        HttpSession sess = ((HttpServletRequest) request).getSession(true);
+        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        return u.getTipo().incluir();        
+    }
+    
+    public String editar(ServletRequest request, int id){
+        HttpSession sess = ((HttpServletRequest) request).getSession(true);
+        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        return u.getTipo().editar(id);
+    }
+    
+    public String excluir(ServletRequest request, int id){
+        HttpSession sess = ((HttpServletRequest) request).getSession(true);
+        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        return u.getTipo().excluir(id);        
     }
 }

@@ -14,6 +14,7 @@ import java.util.Date;
  * @author miche
  */
 public class Pessoa {
+    private int id;
     private String nome;
     private String sobrenome;
     private String cpf;
@@ -23,6 +24,14 @@ public class Pessoa {
     private Telefone residencial;
     private Telefone celular;
     private String email;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;

@@ -2,33 +2,66 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-    
+
     <h:head>
         <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="lib/materialize1/css/materialize.min.css" />
+        <script src="lib/materialize1/js/materialize.min.js"></script>
         <title>Clinica Médica</title>
     </h:head>
     <h:body>
-        <div id='header'>
-            <h1>Bem Vindo a Clinica Médica!</h1>
-        </div>
-        <div>
-            <h3>Digite Seu usuário e senha e acessa ao sistema!</h3>
-            <h:form id='login'>
-                <h:message id='msg_erro' for='username' class='error'></h:message>
-                <div id='username'>
-                    <h:outputLabel for='username' value="Usuário" />
-                    <br />
-                    <h:inputText id='username' value='#{UsuarioBean.username}' />
+        <nav>
+            <div class="nav-wrapper blue">
+                <div class="container">
+                    <a class="brand-logo">Bem Vindo a Clinica Médica!</a>
                 </div>
-                <div id='password'>
-                    <h:outputLabel for='password' value="Password"/>
+            </div>
+        </nav>
+        <main>
+            <div class="row">
+                <div class="container">
+                        <h3>Digite Seu usuário e senha e acessa ao sistema!</h3>
+                <h:form id='login'>
+                    <h:message id='msg_erro' for='username' class='error'></h:message>
+                    <div id='username'>
+                        <h:outputLabel for='username' value="Usuário" />
+                        <br />
+                        <h:inputText id='username' value='#{UsuarioBean.username}' />
+                    </div>
+                    <div id='password'>
+                        <h:outputLabel for='password' value="Password"/>
+                        <br />
+                        <h:inputSecret id='password' value="#{UsuarioBean.password}" />
+                    </div>
                     <br />
-                    <h:inputSecret id='password' value="#{UsuarioBean.password}" />
+                    <h:commandButton id="submit" value="Logar" action="#{UsuarioBean.logar(request)}" />
+                </h:form>
+            </div>
+            </div>
+        </main>
+        <footer class="page-footer blue">
+            <div class="container">
+                <div class="row">
+                    <div class="col 16 s4">
+                        <h5 class="white-text">Clínica Médica</h5>
+                        <p>Otimizando seu tempo</p>
+                    </div>
+                    <div class="col l3 offset-l2 s12">
+                        <h5 class="white-text">Links</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="">Site</a></li>
+
+                        </ul>
+                    </div>
                 </div>
-                <br />
-                <h:commandButton id="submit" value="Logar" action="#{UsuarioBean.logar(request)}" />
-            </h:form>
-        </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2018 Copyright
+                    <a class="grey-text text-lighten-4 right">MichelBolzon</a>
+                </div>
+            </div>
+        </footer>
     </h:body>
 </html>
 
