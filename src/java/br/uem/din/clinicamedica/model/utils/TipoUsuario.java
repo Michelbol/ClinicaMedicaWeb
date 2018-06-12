@@ -25,7 +25,7 @@ public enum TipoUsuario implements menu{
 
         @Override
         public String menuPaciente() {
-            return "MEDICO/consultapacientes";
+            return "consultapaciente";
         }
         
         public void menuProntuario(List<Prontuario> li_prontuario,List<Paciente> li_paciente,Usuario usuarioLogado){

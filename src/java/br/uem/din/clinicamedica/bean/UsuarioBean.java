@@ -47,7 +47,7 @@ public class UsuarioBean {
         Usuario u = new Usuario(username, password);
         HttpSession sess = ((HttpServletRequest) request).getSession(true);
         u = UsuarioController.getInstance().logar(u);
-       if(u != null){
+        if(u != null){
            sess.setAttribute("UsuarioLogado", u);
             return u.getTipo().menu();
        }else{
