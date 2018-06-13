@@ -204,20 +204,32 @@ public class PacienteBean {
     }
     
     public String incluir(ServletRequest request){
-        HttpSession sess = ((HttpServletRequest) request).getSession(true);
-        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        return u.getTipo().incluir();        
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            return u.getTipo().incluir(); 
+        }catch(Exception e){
+            return "/index";
+        }       
     }
     
     public String editar(ServletRequest request, int id){
-        HttpSession sess = ((HttpServletRequest) request).getSession(true);
-        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        return u.getTipo().editar(id);
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            return u.getTipo().editar(id);
+        }catch(Exception e){
+            return "/index";
+        } 
     }
     
     public String excluir(ServletRequest request, int id){
-        HttpSession sess = ((HttpServletRequest) request).getSession(true);
-        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        return u.getTipo().excluir(id);        
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            return u.getTipo().excluir(id);
+        }catch(Exception e){
+            return "/index";
+        }         
     }
 }
