@@ -26,6 +26,16 @@ and open the template in the editor.
             <div class="row">
                 <div class="container">
                 <h1>Pacientes</h1>
+                <div class="row">
+                            <nav>
+                            <div class="nav-wrapper blue">
+                              <div class="col s12">
+                                <a href="http://localhost:8080/ClinicaMedicaWeb/faces/SECRETARIA/menu.xhtml" class="breadcrumb">home</a>
+                                <a class="breadcrumb">Pacientes</a>
+                              </div>
+                            </div>
+                        </nav>
+                    </div>
                 <h:form>
                     <h:commandButton id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandButton>
                     <h:message for="incluir"></h:message>
