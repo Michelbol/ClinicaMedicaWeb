@@ -5,11 +5,18 @@
  */
 package br.uem.din.clinicamedica.bean;
 
+import br.uem.din.clinicamedica.controller.PacienteController;
+import br.uem.din.clinicamedica.controller.ProntuarioController;
 import br.uem.din.clinicamedica.model.Paciente;
+import br.uem.din.clinicamedica.model.Prontuario;
 import br.uem.din.clinicamedica.model.Usuario;
 import java.util.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -73,5 +80,41 @@ public class ProntuarioBean {
     public void setData(Date data) {
         this.data = data;
     }
+    
+    
+    public String consultaProntuarios(ServletRequest request){
+        HttpSession sess = ((HttpServletRequest) request).getSession(true);
+        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        return u.getTipo().menuProntuario();
+    }
+    
+    public List<Prontuario> listarProntuario(){
+        return ProntuarioController.getInstance().listarProntuarios();
+    }
+    
+    public String incluir(ServletRequest request){
+        HttpSession sess = ((HttpServletRequest) request).getSession(true);
+        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        return u.getTipo().incluir();        
+    }
+    
+    public String editar(ServletRequest request, int id){
+        HttpSession sess = ((HttpServletRequest) request).getSession(true);
+        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        return u.getTipo().editar(id);
+    }
+    
+    public String excluir(ServletRequest request, int id){
+        HttpSession sess = ((HttpServletRequest) request).getSession(true);
+        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        return u.getTipo().excluir(id);        
+    }
+    
+    public String consultaRelatorios(ServletRequest request){
+        HttpSession sess = ((HttpServletRequest) request).getSession(true);
+        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        return u.getTipo().menuRelatorios();
+    }
+    
     
 }

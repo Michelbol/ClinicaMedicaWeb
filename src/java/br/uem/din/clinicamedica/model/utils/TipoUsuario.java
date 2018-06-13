@@ -117,4 +117,11 @@ public enum TipoUsuario implements menu{
         
         return true;
     }
+    public String menuProntuario(){
+        return "MEDICO/consultaprontuario";
+    }
+    
+    public String menuRelatorios(){
+        return "MEDICO/consultarelatorios";
+    }
 }
