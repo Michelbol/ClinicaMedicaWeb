@@ -88,7 +88,7 @@ public class ProntuarioBean {
         return u.getTipo().menuProntuario();
     }
     
-    public List<Prontuario> listarProntuario(){
+    public List<Prontuario> listarProntuarios(){
         return ProntuarioController.getInstance().listarProntuarios();
     }
     

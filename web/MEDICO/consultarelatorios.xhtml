@@ -23,40 +23,33 @@ and open the template in the editor.
             </div>
         </nav>
         <main>
-            <h1>Prontuarios</h1>
+            <h1>Pacientes</h1>
             <br />
             <br />
             <h:form>
-                <h:commandButton id='incluir' value='Incluir' action="#{ProntuarioBean.incluir(request)}"></h:commandButton>
+                <h:commandButton id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandButton>
                 <h:message for="incluir"></h:message>
-                <h:dataTable value="#{ProntuarioBean.listarProntuarios()}" var="prontuario">
+                <h:dataTable value="#{PacienteBean.listarPacientes()}" var="paciente">
                     <h:column>
                         <f:facet name="header">
-                            Data
+                            Nome
                         </f:facet>
-                        #{prontuario.data}
+                        #{paciente.nome}
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">
-                            Paciente
+                            Endereço
                         </f:facet>
-                        #{prontuario.paciente.getNome()}
-                    </h:column>
-                    
-                    <h:column>
-                        <f:facet name="header">
-                            Médico
-                        </f:facet>
-                        #{prontuario.medico.getNome()}
+                        #{paciente.endereco}
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">
                             Ações
                         </f:facet>
-                        <h:commandButton id='editar' value='Editar' action="#{ProntuarioBean.editar(request, prontuario.id)}"></h:commandButton>
-                        <h:commandButton id='excluir' value='Excluir' action="#{ProntuarioBean.excluir(request, prontuario.id)}"></h:commandButton>
+                        <h:commandButton id='editar' value='Editar' action="#{PacienteBean.editar(request, paciente.id)}"></h:commandButton>
+                        <h:commandButton id='excluir' value='Excluir' action="#{PacienteBean.excluir(request, paciente.id)}"></h:commandButton>
                     </h:column>
 
                 </h:dataTable>
