@@ -23,7 +23,7 @@ public enum TipoUsuario implements menu{
 
         @Override
         public String menuPaciente() {
-            return "consultapaciente";
+            return "MEDICO/consultapaciente.xhtml";
         }
         
         @Override
@@ -116,5 +116,12 @@ public enum TipoUsuario implements menu{
     public static boolean removerPaciente(List<Paciente> lista_pacientes) {
         
         return true;
+    }
+    public String menuProntuario(){
+        return "MEDICO/consultaprontuario.xhtml";
+    }
+    
+    public String menuRelatorios(){
+        return "MEDICO/consultarelatorios.xhtml";
     }
 }
