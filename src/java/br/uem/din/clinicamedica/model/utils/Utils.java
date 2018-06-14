@@ -13,6 +13,9 @@ import java.util.Date;
  */
 public class Utils {
     public static Date stringToDate(String data) {
+        if(!(data.length() > 0)){
+            return null;
+        }
         String[] g = data.split("/");
         int dia = Integer.parseInt(g[0]);
         int mes = Integer.parseInt(g[1]) - 1;
