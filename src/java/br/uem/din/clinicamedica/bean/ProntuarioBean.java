@@ -5,17 +5,14 @@
  */
 package br.uem.din.clinicamedica.bean;
 
-import br.uem.din.clinicamedica.controller.PacienteController;
 import br.uem.din.clinicamedica.controller.ProntuarioController;
 import br.uem.din.clinicamedica.model.Paciente;
 import br.uem.din.clinicamedica.model.Prontuario;
 import br.uem.din.clinicamedica.model.Usuario;
-import java.util.ArrayList;
-import java.util.Date;
+import br.uem.din.clinicamedica.model.utils.Utils;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.model.SelectItem;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,7 +26,7 @@ import javax.servlet.http.HttpSession;
 @RequestScoped
 public class ProntuarioBean {
     private long id;
-    private long idPaciente;
+    private Paciente paciente;
     private Usuario medico;
     private String sintomas;
     private String diagnostico;
@@ -44,12 +41,12 @@ public class ProntuarioBean {
         this.id = id;
     }
 
-    public long getIdPaciente() {
-        return idPaciente;
+    public Paciente getIdPaciente() {
+        return paciente;
     }
 
-    public void setPaciente(long idPaciente) {
-        this.idPaciente = idPaciente;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
     
     public Usuario getMedico() {
@@ -129,6 +126,7 @@ public class ProntuarioBean {
     public void salvar(HttpSession request){
         HttpSession sess = ((HttpServletRequest) request).getSession(true);
         Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        ProntuarioController.getInstance().salvarProntuario(new Prontuario(idPaciente,u,sintomas,diagnostico,prescricao,data.toDate()));
+        
+        ProntuarioController.getInstance().salvarProntuario(new Prontuario(paciente,u,sintomas,diagnostico,prescricao,Utils.stringToDate(data)));
     }
 }

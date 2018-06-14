@@ -40,7 +40,7 @@ and open the template in the editor.
                         <div class="row">
                             <div class="input-field col s12" id="paciente">
                                 <h:selectOneMenu id="paciente" value="#{ProntuarioBean.paciente}">
-                                    <f:selectItems value="#{PacienteBean.getSelectPaciente()}"/>
+                                    <f:selectItems value="#{PacienteBean.listarPacientes()}"/>
                                 </h:selectOneMenu>
                                 <label for='paciente'>Paciente</label>
                             </div>
