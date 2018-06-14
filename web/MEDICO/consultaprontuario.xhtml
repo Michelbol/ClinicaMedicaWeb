@@ -9,9 +9,9 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" type="text/css" href="../lib/materialize1/css/materialize.min.css" />
         <script src="../lib/materialize1/js/materialize.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
         <title>Clinica Médica</title>
     </h:head>
     <body>
@@ -23,44 +23,46 @@ and open the template in the editor.
             </div>
         </nav>
         <main>
-            <h1>Prontuarios</h1>
-            <br />
-            <br />
-            <h:form>
-                <h:commandButton id='incluir' value='Incluir' action="#{ProntuarioBean.incluir(request)}"></h:commandButton>
-                <h:message for="incluir"></h:message>
-                <h:dataTable value="#{ProntuarioBean.listarProntuarios()}" var="prontuario">
-                    <h:column>
-                        <f:facet name="header">
-                            Data
-                        </f:facet>
-                        #{prontuario.data}
-                    </h:column>
+            <div class="row">
+                <div class="container">
+                <h1>Prontuarios</h1>
+                <h:form>
+                    <h:commandButton id='incluir' value='Incluir' action="#{ProntuarioBean.incluir(request)}"></h:commandButton>
+                    <h:message for="incluir"></h:message>
+                    <h:dataTable value="#{ProntuarioBean.listarProntuarios()}" var="prontuario">
+                        <h:column>
+                            <f:facet name="header">
+                                Data
+                            </f:facet>
+                            #{prontuario.data}
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">
-                            Paciente
-                        </f:facet>
-                        #{prontuario.paciente.getNome()}
-                    </h:column>
-                    
-                    <h:column>
-                        <f:facet name="header">
-                            Médico
-                        </f:facet>
-                        #{prontuario.medico.getNome()}
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Paciente
+                            </f:facet>
+                            #{paciente.paciente.getNome()}
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                Medico
+                            </f:facet>
+                            #{paciente.medico.getNome()}
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">
-                            Ações
-                        </f:facet>
-                        <h:commandButton id='editar' value='Editar' action="#{ProntuarioBean.editar(request, prontuario.id)}"></h:commandButton>
-                        <h:commandButton id='excluir' value='Excluir' action="#{ProntuarioBean.excluir(request, prontuario.id)}"></h:commandButton>
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Ações
+                            </f:facet>
+                            <h:commandButton id='editar' value='Editar' action="#{ProntuarioBean.editar(request, prontuario.id)}"></h:commandButton>
+                            <h:commandButton id='excluir' value='Excluir' action="#{ProntuarioBean.excluir(request, prontuario.id)}"></h:commandButton>
+                        </h:column>
 
-                </h:dataTable>
-            </h:form>
+                    </h:dataTable>
+                </h:form>
+                </div>
+            </div>
         </main>
         <footer class="page-footer blue">
             <div class="container">

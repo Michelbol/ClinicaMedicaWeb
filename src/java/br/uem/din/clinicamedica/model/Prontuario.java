@@ -17,12 +17,21 @@ import java.util.Scanner;
  * @author miche
  */
 public class Prontuario {
+    private long id;
     private Paciente paciente;
     private Usuario medico;
     private String sintomas;
     private String diagnostico;
     private String prescricao;
     private Date data;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Paciente getPaciente() {
         return paciente;
