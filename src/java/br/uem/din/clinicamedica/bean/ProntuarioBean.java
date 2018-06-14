@@ -10,10 +10,12 @@ import br.uem.din.clinicamedica.controller.ProntuarioController;
 import br.uem.din.clinicamedica.model.Paciente;
 import br.uem.din.clinicamedica.model.Prontuario;
 import br.uem.din.clinicamedica.model.Usuario;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.model.SelectItem;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,19 +28,28 @@ import javax.servlet.http.HttpSession;
 @ManagedBean(name = "ProntuarioBean")
 @RequestScoped
 public class ProntuarioBean {
-    private Paciente paciente;
+    private long id;
+    private long idPaciente;
     private Usuario medico;
     private String sintomas;
     private String diagnostico;
     private String prescricao;
-    private Date data;
+    private String data;
 
-    public Paciente getPaciente() {
-        return paciente;
+    public long getId() {
+        return id;
     }
 
-    public void setPaciente(Paciente paciente) {
-        this.paciente = paciente;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setPaciente(long idPaciente) {
+        this.idPaciente = idPaciente;
     }
     
     public Usuario getMedico() {
@@ -73,15 +84,14 @@ public class ProntuarioBean {
         this.prescricao = prescricao;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
-    
-    
+ 
     public String consultaProntuarios(ServletRequest request){
         HttpSession sess = ((HttpServletRequest) request).getSession(true);
         Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
@@ -114,7 +124,11 @@ public class ProntuarioBean {
         HttpSession sess = ((HttpServletRequest) request).getSession(true);
         Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
         return u.getTipo().menuRelatorios();
+    } 
+    
+    public void salvar(HttpSession request){
+        HttpSession sess = ((HttpServletRequest) request).getSession(true);
+        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        ProntuarioController.getInstance().salvarProntuario(new Prontuario(idPaciente,u,sintomas,diagnostico,prescricao,data.toDate()));
     }
-    
-    
 }

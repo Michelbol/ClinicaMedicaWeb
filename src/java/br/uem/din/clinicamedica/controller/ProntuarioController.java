@@ -37,4 +37,8 @@ public class ProntuarioController {
     public List<Prontuario> listarProntuarios(){
         return this.prontuario;
     }
+    
+    public void salvarProntuario(Prontuario p){
+        this.prontuario.add(p);
+    }
 }

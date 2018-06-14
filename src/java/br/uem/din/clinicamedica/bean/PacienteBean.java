@@ -17,10 +17,12 @@ import br.uem.din.clinicamedica.model.utils.Cidade;
 import br.uem.din.clinicamedica.model.utils.Endereco;
 import br.uem.din.clinicamedica.model.utils.Telefone;
 import br.uem.din.clinicamedica.model.utils.TipoConvenio;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.model.SelectItem;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -204,6 +206,18 @@ public class PacienteBean {
         return PacienteController.getInstance().listarPacientes();
     }
     
+    public ArrayList<SelectItem> getSelectPaciente(){
+        ArrayList lista = new ArrayList();
+        List<Paciente> pacientes = PacienteController.getInstance().listarPacientes();
+        
+        lista.add(new SelectItem(null,"Selecione um paciente..."));
+        
+        for(Paciente p: pacientes){
+            lista.add(new SelectItem(p,p.getNome()));
+        }
+        return lista;
+    }
+    
     public String incluir(ServletRequest request){
         try{
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
@@ -239,6 +253,6 @@ public class PacienteBean {
     }
     
     public void salvar(){
-        //PacienteController.getInstance().salvarUsuario(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, nome, sobrenome, cpf, rg, dataNascimento, new Endereco(new Cidade(endereco.getCidade().getCidade(), endereco.getCidade().getEstado(), "Brasil"), nome, nome, rg), residencial, celular, email));dasdasasdasas
+        PacienteController.getInstance().salvarUsuario(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, nome, sobrenome, cpf, rg, dataNascimento, new Endereco(new Cidade(endereco.getCidade().getCidade(), endereco.getCidade().getEstado(), "Brasil"), nome, nome, rg), residencial, celular, email));
     }
 }

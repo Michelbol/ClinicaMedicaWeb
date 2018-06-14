@@ -25,6 +25,15 @@ public class Prontuario {
     private String prescricao;
     private Date data;
 
+    public Prontuario(Paciente paciente, Usuario medico, String sintomas, String diagnostico, String prescricao, Date data) {
+        this.paciente = paciente;
+        this.medico = medico;
+        this.sintomas = sintomas;
+        this.diagnostico = diagnostico;
+        this.prescricao = prescricao;
+        this.data = data;
+    }
+
     public long getId() {
         return id;
     }
