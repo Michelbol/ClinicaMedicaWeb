@@ -92,6 +92,9 @@ public class PacienteBean {
         this.alergias = p.getAlergias();
     }
 
+    public PacienteBean() {
+    }
+
     
     public int getId() {
         return id;
