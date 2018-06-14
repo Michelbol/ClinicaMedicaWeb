@@ -13,6 +13,7 @@ package br.uem.din.clinicamedica.bean;
 import br.uem.din.clinicamedica.controller.PacienteController;
 import br.uem.din.clinicamedica.model.Paciente;
 import br.uem.din.clinicamedica.model.Usuario;
+import br.uem.din.clinicamedica.model.utils.Cidade;
 import br.uem.din.clinicamedica.model.utils.Endereco;
 import br.uem.din.clinicamedica.model.utils.Telefone;
 import br.uem.din.clinicamedica.model.utils.TipoConvenio;
@@ -231,5 +232,13 @@ public class PacienteBean {
         }catch(Exception e){
             return "/index";
         }         
+    }
+    
+    public TipoConvenio[] tipoconvenios(){
+        return TipoConvenio.values();
+    }
+    
+    public void salvar(){
+        PacienteController.getInstance().salvarUsuario(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, nome, sobrenome, cpf, rg, dataNascimento, new Endereco(new Cidade(endereco.getCidade().getCidade(), endereco.getCidade().getEstado(), "Brasil"), nome, nome, rg), residencial, celular, email));dasdasasdasas
     }
 }
