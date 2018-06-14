@@ -30,7 +30,7 @@ public class PacienteController {
         return instance;
     }
     
-    public void salvarUsuario(Paciente paciente){
+    public void salvarPaciente(Paciente paciente){
         this.pacientes.add(paciente);
     }
     
