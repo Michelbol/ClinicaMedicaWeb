@@ -32,6 +32,12 @@ and open the template in the editor.
                     <h:dataTable value="#{PacienteBean.listarPacientes()}" var="paciente">
                         <h:column>
                             <f:facet name="header">
+                                id
+                            </f:facet>
+                            #{paciente.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
                                 Nome
                             </f:facet>
                             #{paciente.nome}
@@ -48,7 +54,7 @@ and open the template in the editor.
                             <f:facet name="header">
                                 Ações
                             </f:facet>
-                            <h:commandButton id='editar' value='Editar' action="#{PacienteBean.editar(request, paciente.id)}"></h:commandButton>
+                            <h:commandButton id='editar' value='Editar' action="#{PacienteBean.editar(request, paciente)}"></h:commandButton>
                             <h:commandButton id='excluir' value='Excluir' action="#{PacienteBean.excluir(request, paciente.id)}"></h:commandButton>
                         </h:column>
 

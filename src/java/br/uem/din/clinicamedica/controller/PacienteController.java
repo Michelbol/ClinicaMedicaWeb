@@ -37,4 +37,13 @@ public class PacienteController {
     public List<Paciente> listarPacientes(){
         return this.pacientes;
     }
+    
+    public Paciente findPaciente(int id){
+        for(Paciente p : this.pacientes){
+            if(p.getId() == id){
+                return p;
+            }
+        }
+        return null;
+    }
 }

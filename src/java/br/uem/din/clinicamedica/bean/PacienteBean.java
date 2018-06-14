@@ -59,7 +59,7 @@ public class PacienteBean {
     private String cirurgias;
     private String alergias;
 
-    public PacienteBean(Paciente p) {
+    public void preencherBean(Paciente p) {
         this.id = p.getId();
         this.nome = p.getNome();
         this.sobrenome = p.getSobrenome();
@@ -353,10 +353,12 @@ public class PacienteBean {
         }       
     }
     
-    public String editar(ServletRequest request, int id){
+    public String editar(ServletRequest request, Paciente pi){
         try{
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            Paciente p = PacienteController.getInstance().findPaciente(pi.getId());
+            preencherBean(p);
             return u.getTipo().editar(id);
         }catch(Exception e){
             return "/index";
