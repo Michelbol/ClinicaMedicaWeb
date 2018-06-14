@@ -95,8 +95,6 @@ public class PacienteBean {
 
     public PacienteBean() {
     }
-
-    
     
     public int getId() {
         return id;
