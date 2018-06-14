@@ -239,6 +239,6 @@ public class PacienteBean {
     }
     
     public void salvar(){
-        PacienteController.getInstance().salvarUsuario(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, nome, sobrenome, cpf, rg, dataNascimento, new Endereco(new Cidade(endereco.getCidade().getCidade(), endereco.getCidade().getEstado(), "Brasil"), nome, nome, rg), residencial, celular, email));dasdasasdasas
+        //PacienteController.getInstance().salvarUsuario(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, nome, sobrenome, cpf, rg, dataNascimento, new Endereco(new Cidade(endereco.getCidade().getCidade(), endereco.getCidade().getEstado(), "Brasil"), nome, nome, rg), residencial, celular, email));dasdasasdasas
     }
 }

@@ -9,9 +9,9 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <link rel="stylesheet" href="../css/style.css" />
         <link rel="stylesheet" type="text/css" href="../lib/materialize1/css/materialize.min.css" />
         <script src="../lib/materialize1/js/materialize.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
         <title>Clinica Médica</title>
     </h:head>
     <body>
@@ -23,37 +23,39 @@ and open the template in the editor.
             </div>
         </nav>
         <main>
-            <h1>Pacientes</h1>
-            <br />
-            <br />
-            <h:form>
-                <h:commandButton class='waves-effect waves-light btn' id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandButton>
-                <h:message for="incluir"></h:message>
-                <h:dataTable value="#{PacienteBean.listarPacientes()}" var="paciente">
-                    <h:column>
-                        <f:facet name="header">
-                            Nome
-                        </f:facet>
-                        #{paciente.nome}
-                    </h:column>
+            <div class="row">
+                <div class="container">
+                <h1>Pacientes</h1>
+                <h:form>
+                    <h:commandButton id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandButton>
+                    <h:message for="incluir"></h:message>
+                    <h:dataTable value="#{PacienteBean.listarPacientes()}" var="paciente">
+                        <h:column>
+                            <f:facet name="header">
+                                Nome
+                            </f:facet>
+                            #{paciente.nome}
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">
-                            Endereço
-                        </f:facet>
-                        #{paciente.endereco}
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Endereço
+                            </f:facet>
+                            #{paciente.endereco}
+                        </h:column>
 
-                    <h:column>
-                        <f:facet name="header">
-                            Ações
-                        </f:facet>
-                        <h:commandButton class='waves-effect waves-light btn' id='editar' value='Editar' action="#{PacienteBean.editar(request, paciente.id)}"></h:commandButton>
-                        <h:commandButton class='waves-effect waves-light btn' id='excluir' value='Excluir' action="#{PacienteBean.excluir(request, paciente.id)}"></h:commandButton>
-                    </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Ações
+                            </f:facet>
+                            <h:commandButton id='editar' value='Editar' action="#{PacienteBean.editar(request, paciente.id)}"></h:commandButton>
+                            <h:commandButton id='excluir' value='Excluir' action="#{PacienteBean.excluir(request, paciente.id)}"></h:commandButton>
+                        </h:column>
 
-                </h:dataTable>
-            </h:form>
+                    </h:dataTable>
+                </h:form>
+                </div>
+            </div>
         </main>
         <footer class="page-footer blue">
             <div class="container">

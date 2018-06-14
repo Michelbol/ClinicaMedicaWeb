@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../lib/materialize1/css/materialize.min.css" />
+        <script src="../lib/materialize1/js/materialize.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <script src="../js/script.js"></script>
+        <title>Clinica Médica</title>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper blue">
+                <div class="container">
+                    <a class="brand-logo">Bem Vindo a Clinica Médica!</a>
+                </div>
+            </div>
+        </nav>
+        <main>            
+            <div class="container">
+                <div class="col s12">
+                    <h1>Incluir Paciente</h1>
+                    <h:form>
+                        <div class="row">
+                            <div class="section">
+                                <label>
+                                    <input id="isfumante" type="checkbox" class="filled-in"/>
+                                    <span>Fumante</span>
+                                </label>
+                                <label>
+                                    <input id="isAlcolatra" type="checkbox" class="filled-in" />
+                                    <span>Alcolatra</span>
+                                </label>
+                                <label>
+                                    <input id="isColesterol" type="checkbox" class="filled-in" />
+                                    <span>Colesterol</span>
+                                </label>
+                                <label>
+                                    <input id="isDiabetico" type="checkbox" class="filled-in" />
+                                    <span>Diabético</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="row">
+                            <div class="input-field col s2" id="nome">
+                                <label for='nome' class="label">Nome</label>
+                                <h:inputText id='nome' value='#{PacienteBean.nome}' />
+                            </div>
+                            <div class="input-field col s4" id="sobrenome">
+                                <label for='sobrenome'>Sobrenome</label>
+                                <h:inputText id='sobrenome' value='#{PacienteBean.sobrenome}' />
+                            </div>
+                            <div class="input-field col s2" id="cpf">
+                                <label for='cpf'>Cpf</label>
+                                <h:inputText id='cpf' value='#{PacienteBean.cpf}' a:placeholder="000.000.000-00" />
+                            </div>
+                            <div class="input-field col s2" id="rg">
+                                <label for='rg'>Rg</label>
+                                <h:inputText id='rg' value='#{PacienteBean.rg}' />
+                            </div>
+                            <div class="input-field col s2" id="dtnascimento">
+                                <label for='dtnascimento'>Data Nascimento</label>
+                                <h:inputText id='dtnascimento' value='#{PacienteBean.dataNascimento}' a:placeholder="DD/MM/AAAA"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4" id="logradouro">
+                                <label for='logradouro'>Logradouro</label>
+                                <h:inputText id='logradouro' value='#{PacienteBean.endereco.logradouro}'/>
+                            </div>
+                            <div class="input-field col s1" id="numero">
+                                <label for='numero'>Número</label>
+                                <h:inputText id='numero' value='#{PacienteBean.endereco.numero}'/>
+                            </div>
+                            <div class="input-field col s3" id="bairro">
+                                <label for='bairro'>Bairro</label>
+                                <h:inputText id='bairro' value='#{PacienteBean.endereco.bairro}'/>
+                            </div>
+                            <div class="input-field col s3" id="cidade">
+                                <label for='cidade'>Cidade</label>
+                                <h:inputText id='cidade' value='#{PacienteBean.endereco.cidade.cidade}'/>
+                            </div>
+                            <div class="input-field col s1" id="estado">
+                                <label for='estado'>Estado</label>
+                                <h:inputText id='estado' value='#{PacienteBean.endereco.cidade.estado}' a:placeholder="Sigla Estado" maxlength="2"/>
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s4" id="email">
+                                <label for='email'>E-mail</label>
+                                <h:inputText id='email' value='#{PacienteBean.email}'/>
+                            </div>
+                            <div class="input-field col s4" id="tipoconvenio">
+                                <h:selectOneMenu id="tipoconvenio" value="#{PacienteBean.tipoconvenio}">
+                                    <f:selectItems value="#{PacienteBean.tipoconvenios()}"/>
+                                </h:selectOneMenu>  
+                                <label for='tipoconvenio'>Tipo Convênio</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <p>Telefone Residencial</p>
+                                <div class="input-field col s4" id="residencialcodigoestado">
+                                    <label for='residencialcodigoestado'>Estado(DDD)</label>
+                                    <h:inputText id='residencialcodigoestado' value='#{PacienteBean.residencial.codigoEstado}'/>
+                                </div>
+                                <div class="input-field col s4" id="residencialprefixo">
+                                    <label for='residencialprefixo'>Prefixo</label>
+                                    <h:inputText id='residencialprefixo' value='#{PacienteBean.residencial.prefixo}'/>
+                                </div>
+                                <div class="input-field col s4" id="residencialsufixo">
+                                    <label for='residencialsufixo'>Sufixo</label>
+                                    <h:inputText id='residencialsufixo' value='#{PacienteBean.residencial.sufixo}'/>
+                                </div> 
+                            </div>
+                            <div class="col s6">
+                                <p>Telefone Celular</p>
+                                <div class="input-field col s4" id="celularcodigoestado">
+                                    <label for='celularcodigoestado'>Estado(DDD)</label>
+                                    <h:inputText id='celularcodigoestado' value='#{PacienteBean.celular.codigoEstado}'/>
+                                </div>
+                                <div class="input-field col s4" id="celularprefixo">
+                                    <label for='celularprefixo'>Prefixo</label>
+                                    <h:inputText id='celularprefixo' value='#{PacienteBean.celular.prefixo}'/>
+                                </div>
+                                <div class="input-field col s4" id="celularsufixo">
+                                    <label for='celularsufixo'>Sufixo</label>
+                                    <h:inputText id='celularsufixo' value='#{PacienteBean.celular.sufixo}'/>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12" id="doencasCardiacas">
+                                <label for='doencasCardiacas'>Doencas Cardiacas</label>
+                                <h:inputText id='doencasCardiacas' value='#{PacienteBean.doencasCardiacas}'/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12" id="cirurgias">
+                                <label for='cirurgias'>Cirurgias</label>
+                                <h:inputText id='cirurgias' value='#{PacienteBean.cirurgias}'/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12" id="alergias">
+                                <label for='alergias'>Alergias</label>
+                                <h:inputText id='alergias' value='#{PacienteBean.alergias}'/>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="section right-align">
+                            <h:commandLink class="waves-effect waves-light btn" value="Salvar" action="#{PacienteBean.salvar}"></h:commandLink>
+                            <a href="http://localhost:8080/ClinicaMedicaWeb/faces/SECRETARIA/consultapaciente.xhtml" class="waves-effect waves-light btn grey">Cancelar</a>
+                        </div>
+                    </h:form>  
+                </div>
+            </div>
+        </main>
+        <footer class="page-footer blue">
+            <div class="container">
+                <div class="row">
+                    <div class="col 16 s4">
+                        <h5 class="white-text">Clínica Médica</h5>
+                        <p>Otimizando seu tempo</p>
+                    </div>
+                    <div class="col l3 offset-l2 s12">
+                        <h5 class="white-text">Links</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="">Site</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2018 Copyright
+                    <a class="grey-text text-lighten-4 right">MichelBolzon</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

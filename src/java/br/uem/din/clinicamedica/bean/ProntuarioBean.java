@@ -95,13 +95,13 @@ public class ProntuarioBean {
     public String incluir(ServletRequest request){
         HttpSession sess = ((HttpServletRequest) request).getSession(true);
         Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        return u.getTipo().incluir();        
+        return u.getTipo().incluirProntuario();        
     }
     
     public String editar(ServletRequest request, int id){
         HttpSession sess = ((HttpServletRequest) request).getSession(true);
         Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        return u.getTipo().editar(id);
+        return u.getTipo().editarProntuario(id);
     }
     
     public String excluir(ServletRequest request, int id){
