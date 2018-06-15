@@ -92,8 +92,8 @@ public class Paciente extends Pessoa{
         this.alergias = alergias;
     }
 
-    public Paciente(TipoConvenio tipoconvenio, boolean isFumante, boolean isAlcolico, boolean colesterol, boolean isDiabetico, String doencasCardiacas, String cirurgias, String alergias, String nome, String sobrenome, String cpf, String rg, Date dataNascimento, Endereco endereco, Telefone residencial, Telefone celular, String email) {
-        super(nome, sobrenome, cpf, rg, dataNascimento, endereco, residencial, celular, email);
+    public Paciente(TipoConvenio tipoconvenio, boolean isFumante, boolean isAlcolico, boolean colesterol, boolean isDiabetico, String doencasCardiacas, String cirurgias, String alergias, int id, String nome, String sobrenome, String cpf, String rg, Date dataNascimento, Endereco endereco, Telefone residencial, Telefone celular, String email) {
+        super(id, nome, sobrenome, cpf, rg, dataNascimento, endereco, residencial, celular, email);
         this.tipoconvenio = tipoconvenio;
         this.isFumante = isFumante;
         this.isAlcolatra = isAlcolico;

@@ -5,6 +5,7 @@
  */
 package br.uem.din.clinicamedica.bean;
 
+import br.uem.din.clinicamedica.controller.PacienteController;
 import br.uem.din.clinicamedica.controller.ProntuarioController;
 import br.uem.din.clinicamedica.model.Paciente;
 import br.uem.din.clinicamedica.model.Prontuario;
@@ -41,7 +42,7 @@ public class ProntuarioBean {
         this.id = id;
     }
 
-    public Paciente getIdPaciente() {
+    public Paciente getPaciente() {
         return paciente;
     }
 
@@ -126,7 +127,7 @@ public class ProntuarioBean {
     public void salvar(HttpSession request){
         HttpSession sess = ((HttpServletRequest) request).getSession(true);
         Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        
-        ProntuarioController.getInstance().salvarProntuario(new Prontuario(paciente,u,sintomas,diagnostico,prescricao,Utils.stringToDate(data)));
+               //Paciente paciente = this.paciente;
+        //ProntuarioController.getInstance().salvarProntuario(new Prontuario(paciente,u,sintomas,diagnostico,prescricao,Utils.stringToDate(data)));
     }
 }
