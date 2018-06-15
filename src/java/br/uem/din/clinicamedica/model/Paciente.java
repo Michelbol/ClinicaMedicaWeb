@@ -115,6 +115,7 @@ public class Paciente extends Pessoa{
     public static List<Paciente> povoarPacientes(){
         List<Paciente> pacientes = new ArrayList();
         Paciente p = new Paciente();
+        p.setId(1);
         p.setNome("Michel");
         p.setSobrenome("Bolzon");
         p.setResidencial(new Telefone("55", "44", "3028", "2998"));
@@ -134,6 +135,7 @@ public class Paciente extends Pessoa{
         p.setAlergias("Não possui");
         pacientes.add(p);
         p = new Paciente();
+        p.setId(2);
         p.setNome("João");
         p.setSobrenome("Vitor malvestio");
         p.setResidencial(new Telefone("55", "44", "3669", "6655"));
@@ -154,4 +156,5 @@ public class Paciente extends Pessoa{
         pacientes.add(p);
         return pacientes;
     }
+    
 }
