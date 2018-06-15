@@ -20,8 +20,10 @@ import br.uem.din.clinicamedica.model.utils.TipoConvenio;
 import br.uem.din.clinicamedica.model.utils.Utils;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -66,7 +68,9 @@ public class PacienteBean {
         this.cpf = p.getCpf();
         this.rg = p.getRg();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        this.dataNascimento = sdf.format(p.getDataNascimento());
+        if(p.getDataNascimento() != null ){
+            this.dataNascimento = sdf.format(p.getDataNascimento());
+        }
         this.logradouro = p.getEndereco().getLogradouro();
         this.numero = p.getEndereco().getNumero();
         this.bairro = p.getEndereco().getBairro();
@@ -365,12 +369,14 @@ public class PacienteBean {
         } 
     }
     
-    public String excluir(ServletRequest request, int id){
+    public String excluir(ServletRequest request, Paciente p){
         try{
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-            return u.getTipo().excluir(id);
+            PacienteController.getInstance().excluirPaciente(p.getId());
+            return "consultapaciente";
         }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
             return "/index";
         }         
     }
@@ -380,7 +386,16 @@ public class PacienteBean {
     }
    
     public String salvar(){
-        PacienteController.getInstance().salvarPaciente(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, nome, sobrenome, cpf, rg, Utils.stringToDate(dataNascimento), new Endereco(new Cidade(cidade, estado, "Brasil"), logradouro, numero, bairro), new Telefone("55", residencialCodigoEstado, residencialPrefixo, residencialSufixo), new Telefone("55", celularcodiGoEstado, celularPrefixo, celularSufixo), email));
+        PacienteController.getInstance().salvarPaciente(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, id, nome, sobrenome, cpf, rg, Utils.stringToDate(dataNascimento), new Endereco(new Cidade(cidade, estado, "Brasil"), logradouro, numero, bairro), new Telefone("55", residencialCodigoEstado, residencialPrefixo, residencialSufixo), new Telefone("55", celularcodiGoEstado, celularPrefixo, celularSufixo), email));
+        return "consultapaciente";
+    }
+    
+    public String atualizar(){
+        try{
+            PacienteController.getInstance().atualizarPaciente(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, id, nome, sobrenome, cpf, rg, Utils.stringToDate(dataNascimento), new Endereco(new Cidade(cidade, estado, "Brasil"), logradouro, numero, bairro), new Telefone("55", residencialCodigoEstado, residencialPrefixo, residencialSufixo), new Telefone("55", celularcodiGoEstado, celularPrefixo, celularSufixo), email));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+        }
         return "consultapaciente";
     }
 }

@@ -49,13 +49,13 @@ and open the template in the editor.
                             </f:facet>
                             #{paciente.endereco}
                         </h:column>
-
+                        
                         <h:column>
                             <f:facet name="header">
                                 Ações
                             </f:facet>
                             <h:commandButton id='editar' value='Editar' action="#{PacienteBean.editar(request, paciente)}"></h:commandButton>
-                            <h:commandButton id='excluir' value='Excluir' action="#{PacienteBean.excluir(request, paciente.id)}"></h:commandButton>
+                            <h:commandButton id='excluir' value='Excluir' action="#{PacienteBean.excluir(request, paciente)}"></h:commandButton>
                         </h:column>
 
                     </h:dataTable>

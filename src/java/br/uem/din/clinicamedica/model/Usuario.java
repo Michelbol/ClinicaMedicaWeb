@@ -48,7 +48,7 @@ public class Usuario extends Pessoa{
     
 
     public Usuario(int id, TipoUsuario tipo, String nome, String sobrenome, String cpf, String rg, Date dataNascimento, Endereco endereco, Telefone residencial, Telefone celular, String email) {
-        super(nome, sobrenome, cpf, rg, dataNascimento, endereco, residencial, celular, email);
+        super(id, nome, sobrenome, cpf, rg, dataNascimento, endereco, residencial, celular, email);
         this.tipo = tipo;
     }
 

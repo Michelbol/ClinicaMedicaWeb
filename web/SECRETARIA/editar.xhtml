@@ -32,21 +32,22 @@ and open the template in the editor.
                     <h:form id="incluir_paciente">
                         <div class="row">
                             <div class="section">
+                                <h:inputHidden id="id" value='#{PacienteBean.id}' />
                                 <h:message id='msg_erro' for='username' class='error'></h:message>
                                 <label>
-                                    <input id="isfumante" type="checkbox" class="filled-in"/>
+                                    <h:selectBooleanCheckbox id="isfumante" class="filled-in" value="#{PacienteBean.isFumante}" />
                                     <span>Fumante</span>
                                 </label>
                                 <label>
-                                    <input id="isAlcolatra" type="checkbox" class="filled-in" />
+                                    <h:selectBooleanCheckbox id="isAlcolatra" class="filled-in" value="#{PacienteBean.isAlcolatra}" />
                                     <span>Alcolatra</span>
                                 </label>
                                 <label>
-                                    <input id="isColesterol" type="checkbox" class="filled-in" />
+                                    <h:selectBooleanCheckbox id="isColesterol" class="filled-in" value="#{PacienteBean.isColesterol}" />
                                     <span>Colesterol</span>
                                 </label>
                                 <label>
-                                    <input id="isDiabetico" type="checkbox" class="filled-in" />
+                                    <h:selectBooleanCheckbox id="isDiabetico" class="filled-in" value="#{PacienteBean.isDiabetico}" />
                                     <span>Diabético</span>
                                 </label>
                             </div>
@@ -56,7 +57,7 @@ and open the template in the editor.
                         <div class="row">
                             <div class="input-field col s2" id="nome">
                                 <label for='nome' class="label">Nome</label>
-                                <h:inputText id='nome' value='#{PacienteBean.editar()}' />
+                                <h:inputText id='nome' value='#{PacienteBean.nome}' />
                             </div>
                             <div class="input-field col s4" id="sobrenome">
                                 <label for='sobrenome'>Sobrenome</label>
@@ -161,7 +162,7 @@ and open the template in the editor.
                         </div>
                         <div class="divider"></div>
                         <div class="section right-align">
-                            <h:commandButton class="waves-effect waves-light btn" value="Salvar" action="#{PacienteBean.salvar()}" ></h:commandButton>
+                            <h:commandLink class="waves-effect waves-light btn" value="Salvar" action="#{PacienteBean.atualizar()}" ></h:commandLink>
                             <a href="http://localhost:8080/ClinicaMedicaWeb/faces/SECRETARIA/consultapaciente.xhtml" class="waves-effect waves-light btn grey">Cancelar</a>
                         </div>
                     </h:form>  

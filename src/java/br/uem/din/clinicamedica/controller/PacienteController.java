@@ -31,6 +31,11 @@ public class PacienteController {
     }
     
     public void salvarPaciente(Paciente paciente){
+        int id = this.pacientes.size()+1;
+        while(findPaciente(id) != null){
+           id += 1;
+        }
+        paciente.setId(id);
         this.pacientes.add(paciente);
     }
     
@@ -45,5 +50,23 @@ public class PacienteController {
             }
         }
         return null;
+    }
+    
+    public void atualizarPaciente(Paciente paciente){
+        Paciente p2 = this.findPaciente(paciente.getId());
+        excluirPaciente(p2.getId());
+        this.pacientes.add(paciente);
+    }
+    
+    public boolean excluirPaciente(int id){
+        int i =0;
+        for(Paciente p : this.pacientes){
+            if(p.getId() == id){
+                this.pacientes.remove(i);
+                return true;
+            }
+            i+=1;
+        }
+        return false;
     }
 }
