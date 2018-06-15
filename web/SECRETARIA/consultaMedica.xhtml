@@ -26,29 +26,43 @@ and open the template in the editor.
         <main>
             <div class="row">
                 <div class="container">
-                <h1>Pacientes</h1>
+                <h1>Consultas Médicas</h1>
                 <h:form>
                     <h:commandLink class="waves-effect waves-light btn" id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandLink>
                     <h:message for="incluir"></h:message>
-                    <h:dataTable value="#{PacienteBean.listarPacientes()}" var="paciente">
+                    <h:dataTable value="#{ConsultaBean.listarConsultas()}" var="consulta">
                         <h:column>
                             <f:facet name="header">
                                 id
                             </f:facet>
-                            #{paciente.id}
+                            #{consulta.id}
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                Nome
+                                Data/Hora
                             </f:facet>
-                            #{paciente.nome}
+                            #{consulta.dataHora}
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">
-                                Endereço
+                                Medico
                             </f:facet>
-                            #{paciente.endereco}
+                            #{consulta.medico.nome}
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                Paciente
+                            </f:facet>
+                            #{consulta.paciente.nome}
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                Tipo
+                            </f:facet>
+                            #{consulta.tipo}
                         </h:column>
                         
                         <h:column>
