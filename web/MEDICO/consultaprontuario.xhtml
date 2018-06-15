@@ -27,7 +27,7 @@ and open the template in the editor.
                 <div class="container">
                 <h1>Prontuarios</h1>
                 <h:form>
-                    <h:commandButton id='incluir' value='Incluir' action="#{ProntuarioBean.incluir(request)}"></h:commandButton>
+                    <h:commandLink class="waves-effect waves-light btn" id='incluir' value='Incluir' action="#{ProntuarioBean.incluir(request)}"></h:commandLink>
                     <h:message for="incluir"></h:message>
                     <h:dataTable value="#{ProntuarioBean.listarProntuarios()}" var="prontuario">
                         <h:column>
@@ -41,22 +41,23 @@ and open the template in the editor.
                             <f:facet name="header">
                                 Paciente
                             </f:facet>
-                            #{paciente.paciente.getNome()}
+                            #{prontuario.paciente.getNome()}
                         </h:column>
                         
                         <h:column>
                             <f:facet name="header">
                                 Medico
                             </f:facet>
-                            #{paciente.medico.getNome()}
+                            #{prontuario.medico.getNome()}
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">
                                 Ações
                             </f:facet>
-                            <h:commandButton id='editar' value='Editar' action="#{ProntuarioBean.editar(request, prontuario.id)}"></h:commandButton>
-                            <h:commandButton id='excluir' value='Excluir' action="#{ProntuarioBean.excluir(request, prontuario.id)}"></h:commandButton>
+                            <h:commandLink class="waves-effect waves-light btn" id='editar' value='Editar' action="#{ProntuarioBean.editar(request, prontuario)}"></h:commandLink>
+                            <span></span>
+                            <h:commandLink class="waves-effect waves-light btn" id='excluir' value='Excluir' action="#{ProntuarioBean.excluir(request, prontuario)}"></h:commandLink>
                         </h:column>
 
                     </h:dataTable>

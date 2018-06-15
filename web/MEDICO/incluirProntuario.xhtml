@@ -40,7 +40,7 @@ and open the template in the editor.
                         <div class="row">
                             <div class="input-field col s12" id="paciente">
                                 <h:selectOneMenu id="paciente" value="#{ProntuarioBean.paciente}">
-                                    <f:selectItems value="#{PacienteBean.listarPacientes()}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente}" />
+                                    <f:selectItems value="#{PacienteBean.listarPacientes()}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente.id}" />
                                 </h:selectOneMenu>
                                 <label for='paciente'>Paciente</label>
                             </div>
@@ -69,7 +69,7 @@ and open the template in the editor.
                         
                         <div class="divider"></div>
                         <div class="section right-align">
-                            <h:commandLink class="waves-effect waves-light btn" value="Salvar" action="#{ProntuarioBean.salvar()}"></h:commandLink>
+                            <h:commandLink class="waves-effect waves-light btn" value="Salvar" action="#{ProntuarioBean.salvar(request)}"></h:commandLink>
                             <a href="http://localhost:8080/ClinicaMedicaWeb/faces/MEDICO/consultaprontuario.xhtml" class="waves-effect waves-light btn grey">Cancelar</a>
                         </div>
                     </h:form>  

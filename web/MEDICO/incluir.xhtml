@@ -29,27 +29,28 @@ and open the template in the editor.
             <div class="container">
                 <div class="col s12">
                     <h1>Incluir Paciente</h1>
-                    <h:form>
+                    <h:form id="incluir_paciente">
                         <div class="row">
                             <div class="section">
                                 <label>
-                                    <input id="isfumante" type="checkbox" class="filled-in"/>
+                                    <h:selectBooleanCheckbox id="isfumante" class="filled-in" value="#{PacienteBean.isFumante}" />
                                     <span>Fumante</span>
                                 </label>
                                 <label>
-                                    <input id="isAlcolatra" type="checkbox" class="filled-in" />
+                                    <h:selectBooleanCheckbox id="isAlcolatra" class="filled-in" value="#{PacienteBean.isAlcolatra}" />
                                     <span>Alcolatra</span>
                                 </label>
                                 <label>
-                                    <input id="isColesterol" type="checkbox" class="filled-in" />
+                                    <h:selectBooleanCheckbox id="isColesterol" class="filled-in" value="#{PacienteBean.isColesterol}" />
                                     <span>Colesterol</span>
                                 </label>
                                 <label>
-                                    <input id="isDiabetico" type="checkbox" class="filled-in" />
+                                    <h:selectBooleanCheckbox id="isDiabetico" class="filled-in" value="#{PacienteBean.isDiabetico}" />
                                     <span>Diabético</span>
                                 </label>
                             </div>
                         </div>
+                        <h:message id='mensagem' for='nome'></h:message>
                         <div class="divider"></div>
                         <div class="row">
                             <div class="input-field col s2" id="nome">
@@ -68,31 +69,31 @@ and open the template in the editor.
                                 <label for='rg'>Rg</label>
                                 <h:inputText id='rg' value='#{PacienteBean.rg}' />
                             </div>
-                            <div class="input-field col s2" id="dtnascimento">
-                                <label for='dtnascimento'>Data Nascimento</label>
-                                <h:inputText id='dtnascimento' value='#{PacienteBean.dataNascimento}' a:placeholder="DD/MM/AAAA"/>
+                            <div class="input-field col s2" id="dataNascimento">
+                                <label for='dataNascimento'>Data Nascimento</label>
+                                <h:inputText id='dataNascimento' value='#{PacienteBean.dataNascimento}'/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s4" id="logradouro">
                                 <label for='logradouro'>Logradouro</label>
-                                <h:inputText id='logradouro' value='#{PacienteBean.endereco.logradouro}'/>
+                                <h:inputText id='logradouro' value='#{PacienteBean.logradouro}'/>
                             </div>
                             <div class="input-field col s1" id="numero">
                                 <label for='numero'>Número</label>
-                                <h:inputText id='numero' value='#{PacienteBean.endereco.numero}'/>
+                                <h:inputText id='numero' value='#{PacienteBean.numero}'/>
                             </div>
                             <div class="input-field col s3" id="bairro">
                                 <label for='bairro'>Bairro</label>
-                                <h:inputText id='bairro' value='#{PacienteBean.endereco.bairro}'/>
+                                <h:inputText id='bairro' value='#{PacienteBean.bairro}'/>
                             </div>
                             <div class="input-field col s3" id="cidade">
                                 <label for='cidade'>Cidade</label>
-                                <h:inputText id='cidade' value='#{PacienteBean.endereco.cidade.cidade}'/>
+                                <h:inputText id='cidade' value='#{PacienteBean.cidade}'/>
                             </div>
                             <div class="input-field col s1" id="estado">
                                 <label for='estado'>Estado</label>
-                                <h:inputText id='estado' value='#{PacienteBean.endereco.cidade.estado}' a:placeholder="Sigla Estado" maxlength="2"/>
+                                <h:inputText id='estado' value='#{PacienteBean.estado}' a:placeholder="Sigla Estado" maxlength="2"/>
                             </div>  
                         </div>
                         <div class="row">
@@ -102,7 +103,7 @@ and open the template in the editor.
                             </div>
                             <div class="input-field col s4" id="tipoconvenio">
                                 <h:selectOneMenu id="tipoconvenio" value="#{PacienteBean.tipoconvenio}">
-                                    <f:selectItems value="#{PacienteBean.tipoconvenios()}"/>
+                                    <f:selectItems value="#{PacienteBean.tipoconvenios()}" />
                                 </h:selectOneMenu>  
                                 <label for='tipoconvenio'>Tipo Convênio</label>
                             </div>
@@ -112,30 +113,30 @@ and open the template in the editor.
                                 <p>Telefone Residencial</p>
                                 <div class="input-field col s4" id="residencialcodigoestado">
                                     <label for='residencialcodigoestado'>Estado(DDD)</label>
-                                    <h:inputText id='residencialcodigoestado' value='#{PacienteBean.residencial.codigoEstado}'/>
+                                    <h:inputText id='residencialcodigoestado' value='#{PacienteBean.residencialCodigoEstado}'/>
                                 </div>
                                 <div class="input-field col s4" id="residencialprefixo">
                                     <label for='residencialprefixo'>Prefixo</label>
-                                    <h:inputText id='residencialprefixo' value='#{PacienteBean.residencial.prefixo}'/>
+                                    <h:inputText id='residencialprefixo' value='#{PacienteBean.residencialPrefixo}'/>
                                 </div>
                                 <div class="input-field col s4" id="residencialsufixo">
                                     <label for='residencialsufixo'>Sufixo</label>
-                                    <h:inputText id='residencialsufixo' value='#{PacienteBean.residencial.sufixo}'/>
+                                    <h:inputText id='residencialsufixo' value='#{PacienteBean.residencialSufixo}'/>
                                 </div> 
                             </div>
                             <div class="col s6">
                                 <p>Telefone Celular</p>
                                 <div class="input-field col s4" id="celularcodigoestado">
                                     <label for='celularcodigoestado'>Estado(DDD)</label>
-                                    <h:inputText id='celularcodigoestado' value='#{PacienteBean.celular.codigoEstado}'/>
+                                    <h:inputText id='celularcodigoestado' value='#{PacienteBean.celularcodiGoEstado}'/>
                                 </div>
                                 <div class="input-field col s4" id="celularprefixo">
                                     <label for='celularprefixo'>Prefixo</label>
-                                    <h:inputText id='celularprefixo' value='#{PacienteBean.celular.prefixo}'/>
+                                    <h:inputText id='celularprefixo' value='#{PacienteBean.celularPrefixo}'/>
                                 </div>
                                 <div class="input-field col s4" id="celularsufixo">
                                     <label for='celularsufixo'>Sufixo</label>
-                                    <h:inputText id='celularsufixo' value='#{PacienteBean.celular.sufixo}'/>
+                                    <h:inputText id='celularsufixo' value='#{PacienteBean.celularSufixo}'/>
                                 </div> 
                             </div>
                         </div>
@@ -159,7 +160,7 @@ and open the template in the editor.
                         </div>
                         <div class="divider"></div>
                         <div class="section right-align">
-                            <h:commandLink class="waves-effect waves-light btn" value="Salvar" action="#{PacienteBean.salvar}"></h:commandLink>
+                            <h:commandLink class="waves-effect waves-light btn" value="Salvar" action="#{PacienteBean.salvar()}" ></h:commandLink>
                             <a href="http://localhost:8080/ClinicaMedicaWeb/faces/SECRETARIA/consultapaciente.xhtml" class="waves-effect waves-light btn grey">Cancelar</a>
                         </div>
                     </h:form>  

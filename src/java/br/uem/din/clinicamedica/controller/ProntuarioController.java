@@ -38,7 +38,36 @@ public class ProntuarioController {
         return this.prontuario;
     }
     
-    public void salvarProntuario(Prontuario p){
-        this.prontuario.add(p);
+    public void salvarProntuario(Prontuario prontuario){
+        this.prontuario.add(prontuario);
+        prontuario.setId(this.prontuario.size());
+    }
+        
+    public void atualizarPaciente(Prontuario prontuario){
+        Prontuario prontuario2 = this.findProntuario(prontuario.getId());
+        prontuario.setMedico(prontuario2.getMedico());
+        excluirProntuario(prontuario2.getId());
+        this.prontuario.add(prontuario);
+    }
+    
+    public Prontuario findProntuario(int id){
+        for(Prontuario p : this.prontuario){
+            if(p.getId() == id){
+                return p;
+            }
+        }
+        return null;
+    }
+    
+    public boolean excluirProntuario(int id){
+        int i =0;
+        for(Prontuario p : this.prontuario){
+            if(p.getId() == id){
+                this.prontuario.remove(i);
+                return true;
+            }
+            i++;
+        }
+        return false;
     }
 }
