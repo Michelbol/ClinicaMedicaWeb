@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../lib/materialize1/css/materialize.min.css" />
+        <script src="../lib/materialize1/js/materialize.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <script src="../js/script.js"></script>
+        <title>Clinica Médica</title>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper blue">
+                <div class="container">
+                    <a href="http://localhost:8080/ClinicaMedicaWeb/faces/index.xhtml" class="brand-logo">Bem Vindo a Clinica Médica!</a>
+                </div>
+            </div>
+        </nav>
+        <main>            
+            <div class="container">
+                <div class="col s12">
+                    <h1>Editar Consulta</h1>
+                    <h:form id="incluir_consulta">  
+                        <h:message id='mensagem' for='nome'></h:message>
+                        <h:inputHidden id="id" value='#{ConsultaBean.id}' />
+                        <div class="divider"></div>
+                        <div class="row">
+                            <div class="input-field col s3" id="datahora">
+                                <label for='datahora' class="label">Data/Hora</label>
+                                <h:inputText id='datahora' value='#{ConsultaBean.dataHora}' a:placeholder="dd/MM/yyyy HH:mm" />
+                            </div>
+                            <div class="input-field col s4" id="paciente">
+                                <h:selectOneMenu id="medico" value="#{ConsultaBean.medico}">
+                                    <f:selectItems value="#{ConsultaBean.listarMedicos()}" var="medico" itemLabel="#{medico.nome}" itemValue="#{medico.id}" />
+                                </h:selectOneMenu>
+                                <label for='medico'>Médico</label>
+                            </div>
+                            <div class="input-field col s4" id="paciente">
+                                <h:selectOneMenu id="paciente" value="#{ConsultaBean.paciente}">
+                                    <f:selectItems value="#{ConsultaBean.listarPacientes()}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente.id}" />
+                                </h:selectOneMenu>
+                                <label for='paciente'>Paciente</label>
+                            </div>
+                            <div class="input-field col s4" id="tipoconsulta">
+                                <h:selectOneMenu id="tipoconsulta" value="#{ConsultaBean.tipo}">
+                                    <f:selectItems value="#{ConsultaBean.tipos()}" />
+                                </h:selectOneMenu>  
+                                <label for='tipoconsulta'>Tipo Convênio</label>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="section right-align">
+                            <h:commandLink class="waves-effect waves-light btn" value="Salvar" action="#{ConsultaBean.atualizar()}" ></h:commandLink>
+                            <a href="http://localhost:8080/ClinicaMedicaWeb/faces/SECRETARIA/consultaMedica.xhtml" class="waves-effect waves-light btn grey">Cancelar</a>
+                        </div>
+                    </h:form>  
+                </div>
+            </div>
+        </main>
+        <footer class="page-footer blue">
+            <div class="container">
+                <div class="row">
+                    <div class="col 16 s4">
+                        <h5 class="white-text">Clínica Médica</h5>
+                        <p>Otimizando seu tempo</p>
+                    </div>
+                    <div class="col l3 offset-l2 s12">
+                        <h5 class="white-text">Links</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="">Site</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2018 Copyright
+                    <a class="grey-text text-lighten-4 right"></a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

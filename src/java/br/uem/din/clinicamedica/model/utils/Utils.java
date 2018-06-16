@@ -29,4 +29,24 @@ public class Utils {
         Date dt = new Date(ano, mes, dia);
         return dt;
     }
+    
+    public static Date stringToDateTime(String data) {
+        String[] dateTime = data.split(" ");
+        String[] date = dateTime[0].split("/");
+        String[] time = dateTime[1].split(":");
+        int dia = Integer.parseInt(date[0]);
+        int mes = Integer.parseInt(date[1]) - 1;
+        int ano = Integer.parseInt(date[2]);
+        int hora = Integer.parseInt(time[0]);
+        int minuto = Integer.parseInt(time[1]);
+        if (ano > 99) {
+            ano = ano - 1900;
+        }
+        if (ano < 50) {
+            ano = ano + 2000;
+        }
+        Date dt = new Date(ano, mes, dia, hora, minuto);
+        return dt;
+    }
+
 }
