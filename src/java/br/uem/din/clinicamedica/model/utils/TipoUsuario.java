@@ -33,7 +33,7 @@ public enum TipoUsuario implements menu{
 
         @Override
         public String editar(int i) {
-            return "excluir";
+            return "editar";
         }
 
         @Override
@@ -129,7 +129,7 @@ public enum TipoUsuario implements menu{
         return "incluirProntuario.xhtml";
     }
     
-    public String editarProntuario(long id){
+    public String editarProntuario(int id){
         return "editarProntuario.xhtml";
     }
 }

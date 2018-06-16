@@ -10,6 +10,7 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <link rel="stylesheet" type="text/css" href="../lib/materialize1/css/materialize.min.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <script src="../lib/materialize1/js/materialize.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
         <title>Clinica Médica</title>
@@ -27,9 +28,15 @@ and open the template in the editor.
                 <div class="container">
                 <h1>Pacientes</h1>
                 <h:form>
-                    <h:commandButton id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandButton>
+                    <h:commandLink class="waves-effect waves-light btn" id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandLink>
                     <h:message for="incluir"></h:message>
                     <h:dataTable value="#{PacienteBean.listarPacientes()}" var="paciente">
+                        <h:column>
+                            <f:facet name="header">
+                                id
+                            </f:facet>
+                            #{paciente.id}
+                        </h:column>
                         <h:column>
                             <f:facet name="header">
                                 Nome
@@ -43,13 +50,15 @@ and open the template in the editor.
                             </f:facet>
                             #{paciente.endereco}
                         </h:column>
-
+                        
                         <h:column>
                             <f:facet name="header">
                                 Ações
                             </f:facet>
-                            <h:commandButton id='editar' value='Editar' action="#{PacienteBean.editar(request, paciente.id)}"></h:commandButton>
-                            <h:commandButton id='excluir' value='Excluir' action="#{PacienteBean.excluir(request, paciente.id)}"></h:commandButton>
+                            
+                            <h:commandLink class="waves-effect waves-light btn" id='editar' value='Editar' action="#{PacienteBean.editar(request, paciente)}"></h:commandLink>
+                            <span></span>
+                            <h:commandLink class="waves-effect waves-light btn" id='excluir' value='Excluir' action="#{PacienteBean.excluir(request, paciente)}"></h:commandLink>
                         </h:column>
 
                     </h:dataTable>

@@ -5,19 +5,14 @@
  */
 package br.uem.din.clinicamedica.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Calendar;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  *
  * @author miche
  */
 public class Prontuario {
-    private long id;
+    private int id;
     private Paciente paciente;
     private Usuario medico;
     private String sintomas;
@@ -33,12 +28,21 @@ public class Prontuario {
         this.prescricao = prescricao;
         this.data = data;
     }
+    
+    public Prontuario(int id, Paciente paciente, String sintomas, String diagnostico, String prescricao, Date data) {
+        this.id = id;
+        this.paciente = paciente;
+        this.sintomas = sintomas;
+        this.diagnostico = diagnostico;
+        this.prescricao = prescricao;
+        this.data = data;
+    }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
