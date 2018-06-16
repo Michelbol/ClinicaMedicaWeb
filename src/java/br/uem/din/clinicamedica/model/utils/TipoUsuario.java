@@ -54,7 +54,7 @@ public enum TipoUsuario implements menu{
     }, Secretaria{
         @Override
         public String menu() {
-            return "SECRETARIA/menu.xhtml";
+            return "/SECRETARIA/menu";
         }
 
         @Override

@@ -45,7 +45,7 @@ public class ProntuarioBean {
     public Paciente getPaciente() {
         return paciente;
     }
-
+    
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
     }
@@ -130,4 +130,4 @@ public class ProntuarioBean {
                //Paciente paciente = this.paciente;
         //ProntuarioController.getInstance().salvarProntuario(new Prontuario(paciente,u,sintomas,diagnostico,prescricao,Utils.stringToDate(data)));
     }
-}
+    }

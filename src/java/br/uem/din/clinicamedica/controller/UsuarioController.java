@@ -6,6 +6,7 @@
 package br.uem.din.clinicamedica.controller;
 
 import br.uem.din.clinicamedica.model.Usuario;
+import br.uem.din.clinicamedica.model.utils.TipoUsuario;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,16 @@ public class UsuarioController {
         return this.usuarios;
     }
     
+    public List<Usuario> listarMedicos(){
+        List<Usuario> lista_medicos = new ArrayList();
+        for(Usuario u : UsuarioController.getInstance().listarUsuarios()){
+            if(u.getTipo() == TipoUsuario.Medico){
+                lista_medicos.add(u);
+            }
+        }
+        return lista_medicos;
+    }
+    
     public Usuario logar(Usuario u){
         try{
             int index = usuarios.indexOf(u);
@@ -45,5 +56,13 @@ public class UsuarioController {
         }catch(ArrayIndexOutOfBoundsException e){
             return null;
         }
+    }
+    public Usuario findUsuario(int id){
+        for(Usuario u : this.usuarios){
+            if(u.getId() == id){
+                return u;
+            }
+        }
+        return null;
     }
 }

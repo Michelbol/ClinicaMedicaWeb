@@ -52,13 +52,13 @@ public class ConsultaController {
         return null;
     }
     
-    public void atualizarConsulta(Consulta paciente){
-        Consulta p2 = this.findConsulta(paciente.getId());
-        excluirPaciente(p2.getId());
-        this.consultas.add(paciente);
+    public void atualizarConsulta(Consulta consulta){
+        Consulta c2 = this.findConsulta(consulta.getId());
+        excluirConsulta(c2.getId());
+        this.consultas.add(consulta);
     }
     
-    public boolean excluirPaciente(int id){
+    public boolean excluirConsulta(int id){
         int i =0;
         for(Consulta p : this.consultas){
             if(p.getId() == id){

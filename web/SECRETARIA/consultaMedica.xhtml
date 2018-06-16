@@ -19,7 +19,7 @@ and open the template in the editor.
         <nav>
             <div class="nav-wrapper blue">
                 <div class="container">
-                    <a class="brand-logo">Bem Vindo a Clinica Médica!</a>
+                    <a href="http://localhost:8080/ClinicaMedicaWeb/faces/index.xhtml" class="brand-logo">Bem Vindo a Clinica Médica!</a>
                 </div>
             </div>
         </nav>
@@ -28,7 +28,7 @@ and open the template in the editor.
                 <div class="container">
                 <h1>Consultas Médicas</h1>
                 <h:form>
-                    <h:commandLink class="waves-effect waves-light btn" id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandLink>
+                    <h:commandLink class="waves-effect waves-light btn" id='incluir' value='Incluir' action="#{ConsultaBean.incluir()}"></h:commandLink>
                     <h:message for="incluir"></h:message>
                     <h:dataTable value="#{ConsultaBean.listarConsultas()}" var="consulta">
                         <h:column>
@@ -70,9 +70,9 @@ and open the template in the editor.
                                 Ações
                             </f:facet>
                             
-                            <h:commandLink class="waves-effect waves-light btn" id='editar' value='Editar' action="#{PacienteBean.editar(request, paciente)}"></h:commandLink>
+                            <h:commandLink class="waves-effect waves-light btn" id='editar' value='Editar' action="#{ConsultaBean.editar(consulta.id)}"></h:commandLink>
                             <span></span>
-                            <h:commandLink class="waves-effect waves-light btn" id='excluir' value='Excluir' action="#{PacienteBean.excluir(request, paciente)}"></h:commandLink>
+                            <h:commandLink class="waves-effect waves-light btn" id='excluir' value='Excluir' action="#{ConsultaBean.excluir(consulta.id)}"></h:commandLink>
                         </h:column>
 
                     </h:dataTable>
@@ -99,7 +99,7 @@ and open the template in the editor.
             <div class="footer-copyright">
                 <div class="container">
                     © 2018 Copyright
-                    <a class="grey-text text-lighten-4 right">MichelBolzon</a>
+                    <a class="grey-text text-lighten-4 right"></a>
                 </div>
             </div>
         </footer>

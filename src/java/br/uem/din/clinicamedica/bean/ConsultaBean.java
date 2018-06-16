@@ -6,17 +6,20 @@
 package br.uem.din.clinicamedica.bean;
 
 import br.uem.din.clinicamedica.controller.ConsultaController;
+import br.uem.din.clinicamedica.controller.PacienteController;
+import br.uem.din.clinicamedica.controller.UsuarioController;
 import br.uem.din.clinicamedica.model.Consulta;
 import br.uem.din.clinicamedica.model.Paciente;
 import br.uem.din.clinicamedica.model.Usuario;
 import br.uem.din.clinicamedica.model.utils.TipoConsulta;
-import java.util.Date;
+import br.uem.din.clinicamedica.model.utils.Utils;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+
 
 /**
  *
@@ -26,9 +29,9 @@ import javax.servlet.http.HttpSession;
 @RequestScoped
 public class ConsultaBean {
     private int id;
-    private Date dataHora;
-    private Usuario medico;
-    private Paciente paciente;
+    private String dataHora;
+    private int medico;
+    private int paciente;
     private TipoConsulta tipo;
 
     public int getId() {
@@ -39,27 +42,27 @@ public class ConsultaBean {
         this.id = id;
     }
 
-    public Date getDataHora() {
+    public String getDataHora() {
         return dataHora;
-    }
+        }
 
-    public void setDataHora(Date dataHora) {
+    public void setDataHora(String dataHora) {
         this.dataHora = dataHora;
     }
 
-    public Usuario getMedico() {
+    public int getMedico() {
         return medico;
     }
 
-    public void setMedico(Usuario medico) {
+    public void setMedico(int medico) {
         this.medico = medico;
     }
 
-    public Paciente getPaciente() {
+    public int getPaciente() {
         return paciente;
     }
 
-    public void setPaciente(Paciente paciente) {
+    public void setPaciente(int paciente) {
         this.paciente = paciente;
     }
 
@@ -71,13 +74,65 @@ public class ConsultaBean {
         this.tipo = tipo;
     }
     
+    public void preencherBean(Consulta c) {
+        this.id         = c.getId();
+        if(c.getDataHora() != null ){
+            this.dataHora   = c.getDataHora();
+        }
+        this.medico     = c.getMedico().getId();
+        this.paciente   = c.getPaciente().getId();
+        this.tipo       = c.getTipo();
+    }
+    
     public List<Consulta> listarConsultas(){
         return ConsultaController.getInstance().listarConsultas();
     }
     
+    public List<Usuario> listarMedicos(){
+        return UsuarioController.getInstance().listarMedicos();
+    }
+    public List<Paciente> listarPacientes(){
+        return PacienteController.getInstance().listarPacientes();
+    }
+    
     public String consultasMedicas(ServletRequest request){
-        HttpSession sess = ((HttpServletRequest) request).getSession(true);
-        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        return "SECRETARIA/consultaMedica.xhtml";
+    }
+    
+    public TipoConsulta[] tipos(){
+        return TipoConsulta.values();
+    }
+    
+    public String incluir(){
+        return "incluirConsulta.xhtml";
+    }
+    
+    public String salvar(){
+        ConsultaController.getInstance().salvarConsulta(new Consulta(Utils.stringToDateTime(dataHora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
+        return "consultaMedica";
+    }
+    
+    public String excluir(int id){
+        try{
+            ConsultaController.getInstance().excluirConsulta(id);
+            return "consultaMedica";
+        }catch(Exception e){
+            return "/index";
+        }         
+    }
+    
+    public String editar(int id){
+            Consulta c = ConsultaController.getInstance().findConsulta(id);
+            preencherBean(c);
+            return "editarConsulta";
+    }
+    
+    public String atualizar(){
+        try{
+            ConsultaController.getInstance().atualizarConsulta(new Consulta(id,Utils.stringToDateTime(dataHora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+        }
         return "consultaMedica";
     }
 }
