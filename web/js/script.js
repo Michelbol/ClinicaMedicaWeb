@@ -6,4 +6,63 @@
 
  $(document).ready(function(){
     $('select').formSelect();
+    $('.datepicker').datepicker({
+        autoClose: true,
+        closeOnSelect: true,
+        container: 'main',
+        format: 'dd/mm/yyyy',
+        yearRange: [1920, 2100],
+        i18n: {
+            cancel: 'Cancelar',
+            months: [
+                'Janeiro',
+                'Fevereiro',
+                'Março',
+                'Abril',
+                'Maio',
+                'Junho',
+                'Julho',
+                'Agosto',
+                'Setembro',
+                'Outubro',
+                'Novembro',
+                'Dezembro'
+            ],
+            monthsShort: [
+                'Jan',
+                'Fev',
+                'Mar',
+                'Abr',
+                'Mai',
+                'Jun',
+                'Jul',
+                'Ago',
+                'Set',
+                'Out',
+                'Nov',
+                'Dez'
+            ],
+            weekdays:
+                [
+                    'Domingo',
+                    'Segunda',
+                    'Terça',
+                    'Quarta',
+                    'Quinta',
+                    'Sexta',
+                    'Sábado'
+                ],
+            weekdaysShort:
+                [
+                    'Dom',
+                    'Seg',
+                    'Ter',
+                    'Qua',
+                    'Qui',
+                    'Sex',
+                    'Sab'
+                ],
+            weekdaysAbbrev: ['S','T','Q','Q','S','S','D'],
+        }
+    });    
   });
