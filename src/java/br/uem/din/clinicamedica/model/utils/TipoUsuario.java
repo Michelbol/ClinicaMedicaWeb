@@ -18,22 +18,22 @@ public enum TipoUsuario implements menu{
     Medico{
         @Override
         public String menu() {
-            return "MEDICO/menu";
+            return "MEDICO_menu.xhtml";
         }
 
         @Override
         public String menuPaciente() {
-            return "MEDICO/consultapaciente.xhtml";
+            return "consultaPaciente.xhtml";
         }
         
         @Override
         public String incluir() {
-           return "incluir";
+           return "MEDICO_incluirPaciente.xhtml";
         }
 
         @Override
         public String editar(int i) {
-            return "editar";
+            return "MEDICO_editarPaciente.xhtml";
         }
 
         @Override
@@ -54,22 +54,22 @@ public enum TipoUsuario implements menu{
     }, Secretaria{
         @Override
         public String menu() {
-            return "/SECRETARIA/menu";
+            return "SECRETARIA_menu.xhtml";
         }
 
         @Override
         public String menuPaciente() {
-            return "SECRETARIA/consultapaciente.xhtml";
+            return "consultaPaciente.xhtml";
         }
 
         @Override
         public String incluir() {
-           return "incluir";
+           return "SECRETARIA_incluirPaciente.xhtml";
         }
 
         @Override
         public String editar(int i) {
-            return "editar";
+            return "SECRETARIA_editarPaciente.xhtml";
         }
 
         @Override
@@ -118,18 +118,18 @@ public enum TipoUsuario implements menu{
         return true;
     }
     public String menuProntuario(){
-        return "MEDICO/consultaprontuario.xhtml";
+        return "MEDICO_consultaProntuario.xhtml";
     }
     
     public String menuRelatorios(){
-        return "MEDICO/consultarelatorios.xhtml";
+        return "MEDICO_consultaRelatorios.xhtml";
     }
     
     public String incluirProntuario(){
-        return "incluirProntuario.xhtml";
+        return "MEDICO_incluirProntuario.xhtml";
     }
     
     public String editarProntuario(int id){
-        return "editarProntuario.xhtml";
+        return "MEDICO_editarProntuario.xhtml";
     }
 }

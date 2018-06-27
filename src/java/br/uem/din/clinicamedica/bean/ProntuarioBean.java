@@ -107,9 +107,17 @@ public class ProntuarioBean {
     }
  
     public String consultaProntuarios(ServletRequest request){
-        HttpSession sess = ((HttpServletRequest) request).getSession(true);
-        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        return u.getTipo().menuProntuario();
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                return u.getTipo().menuProntuario();
+            }else{
+                return "index.xhtml";
+            }
+        }catch(Exception e){
+            return "index.xhtml";
+        }
     }
     
     public List<Prontuario> listarProntuarios(){
@@ -143,7 +151,7 @@ public class ProntuarioBean {
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
             ProntuarioController.getInstance().excluirProntuario(p.getId());
-            return "consultaprontuario";
+            return "MEDICO_consultaProntuario.xhtml";
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
             return "/index";
@@ -151,9 +159,17 @@ public class ProntuarioBean {
     }
     
     public String consultaRelatorios(ServletRequest request){
-        HttpSession sess = ((HttpServletRequest) request).getSession(true);
-        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        return u.getTipo().menuRelatorios();
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                return u.getTipo().menuRelatorios();
+            }else{
+                return "index.xhtml";
+            }
+        }catch(Exception e){
+            return "index.xhtml";
+        }
     } 
     
     public String salvar(ServletRequest request){
@@ -161,7 +177,7 @@ public class ProntuarioBean {
         Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
         Paciente pacienteTela = PacienteController.getInstance().findPaciente(idPaciente);
         ProntuarioController.getInstance().salvarProntuario(new Prontuario(pacienteTela,u,sintomas,diagnostico,prescricao,Utils.stringToDate(data)));
-        return "consultaprontuario";
+        return "MEDICO_consultaProntuario.xhtml";
     }
     
     public String atualizar(){
@@ -171,6 +187,6 @@ public class ProntuarioBean {
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
         }
-        return "consultaprontuario";
+        return "MEDICO_consultaProntuario.xhtml";
     }
-    }
+}

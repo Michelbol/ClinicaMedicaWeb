@@ -19,6 +19,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -96,7 +98,18 @@ public class ConsultaBean {
     }
     
     public String consultasMedicas(ServletRequest request){
-        return "SECRETARIA/consultaMedica.xhtml";
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                return "SECRETARIA_consultaMedica.xhtml";
+            }else{
+                return "index.xhtml"; 
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            return "index.xhtml";
+        }    
     }
     
     public TipoConsulta[] tipos(){
@@ -104,27 +117,28 @@ public class ConsultaBean {
     }
     
     public String incluir(){
-        return "incluirConsulta.xhtml";
+        return "SECRETARIA_incluirConsulta.xhtml";
     }
     
     public String salvar(){
         ConsultaController.getInstance().salvarConsulta(new Consulta(Utils.stringToDateTime(dataHora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
-        return "consultaMedica";
+        return "SECRETARIA_consultaMedica.xhtml";
     }
     
     public String excluir(int id){
         try{
             ConsultaController.getInstance().excluirConsulta(id);
-            return "consultaMedica";
+            return "SECRETARIA_consultaMedica.xhtml";
         }catch(Exception e){
-            return "/index";
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            return "index.xhtml";
         }         
     }
     
     public String editar(int id){
             Consulta c = ConsultaController.getInstance().findConsulta(id);
             preencherBean(c);
-            return "editarConsulta";
+            return "SECRETARIA_editarConsulta.xhtml";
     }
     
     public String atualizar(){
@@ -132,7 +146,8 @@ public class ConsultaBean {
             ConsultaController.getInstance().atualizarConsulta(new Consulta(id,Utils.stringToDateTime(dataHora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            return "index.xhtml";
         }
-        return "consultaMedica";
+        return "SECRETARIA_consultaMedica.xhtml";
     }
 }
