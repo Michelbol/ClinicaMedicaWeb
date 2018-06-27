@@ -62,7 +62,7 @@
                     'Sex',
                     'Sab'
                 ],
-            weekdaysAbbrev: ['S','T','Q','Q','S','S','D'],
+            weekdaysAbbrev: ['S','T','Q','Q','S','S','D']
         }
     });    
   });
