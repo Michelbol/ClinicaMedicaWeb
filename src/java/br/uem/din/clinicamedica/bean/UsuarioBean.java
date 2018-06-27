@@ -44,19 +44,45 @@ public class UsuarioBean {
     }
     
     public String logar(ServletRequest request){
-        Usuario u = new Usuario(username, password);
+        String usuarioLogado = "";
+        usuarioLogado = this.login(request);
+        if("index".equals(usuarioLogado)){
+            Usuario u = new Usuario(username, password);
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            u = UsuarioController.getInstance().logar(u);
+            if(u != null){
+               sess.setAttribute("UsuarioLogado", u);
+                return u.getTipo().menu();
+           }else{
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário ou senha inválidos"));
+            return "index";
+           }
+        }else{
+            return usuarioLogado;
+        }
+    }
+    
+    public String login(ServletRequest request){
         HttpSession sess = ((HttpServletRequest) request).getSession(true);
-        u = UsuarioController.getInstance().logar(u);
-        if(u != null){
-           sess.setAttribute("UsuarioLogado", u);
+        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        if(u == null){
+            return "index";
+        }else{
             return u.getTipo().menu();
-       }else{
-        FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário ou senha inválidos"));
-        return "index";
-       }
+        }
     }
     
     public List<Usuario> listarUsuarios(){
         return UsuarioController.getInstance().listarUsuarios();
+    }
+    
+    public String menu(ServletRequest request){
+        HttpSession sess = ((HttpServletRequest) request).getSession(true);
+        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+        if(u == null){
+            return "index";
+        }else{
+            return u.getTipo().menu();
+        }
     }
 }

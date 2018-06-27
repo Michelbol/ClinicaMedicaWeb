@@ -19,7 +19,7 @@ and open the template in the editor.
         <nav>
             <div class="nav-wrapper blue">
                 <div class="container">
-                    <a href="http://localhost:8080/ClinicaMedicaWeb/faces/index.xhtml" class="brand-logo">Bem Vindo a Clinica Médica!</a>
+                    <a href="#{UsuarioBean.menu(request)}" class="brand-logo">Bem Vindo a Clinica Médica!</a>
                 </div>
             </div>
         </nav>
@@ -27,6 +27,15 @@ and open the template in the editor.
             <div class="row">
                 <div class="container">
                 <h1>Pacientes</h1>
+                <nav>
+                    <div class="nav-wrapper blue">
+                        <div class="col s12">
+                            <a href="#{UsuarioBean.menu(request)}" class="breadcrumb">Home</a>
+                            <a class="breadcrumb">Consulta Paciente</a>
+                        </div>
+                  </div>
+                </nav>
+                <br/>
                 <h:form>
                     <h:commandLink class="waves-effect waves-light btn" id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandLink>
                     <h:message for="incluir"></h:message>

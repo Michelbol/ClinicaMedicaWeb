@@ -337,9 +337,18 @@ public class PacienteBean {
     
 
     public String consultaPacientes(ServletRequest request){
-        HttpSession sess = ((HttpServletRequest) request).getSession(true);
-        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        return u.getTipo().menuPaciente();
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                return u.getTipo().menuPaciente();
+            }else{
+                return "index.xhtml";
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            return "index.xhtml";
+        }
     }
     
     public List<Paciente> listarPacientes(){
@@ -352,7 +361,8 @@ public class PacienteBean {
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
             return u.getTipo().incluir(); 
         }catch(Exception e){
-            return "/index";
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            return "index.xhtml";
         }       
     }
     
@@ -364,7 +374,8 @@ public class PacienteBean {
             preencherBean(p);
             return u.getTipo().editar(id);
         }catch(Exception e){
-            return "/index";
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            return "index.xhtml";
         } 
     }
     
@@ -373,10 +384,10 @@ public class PacienteBean {
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
             PacienteController.getInstance().excluirPaciente(p.getId());
-            return "consultapaciente";
+            return "consultaPaciente.xhtml";
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
-            return "/index";
+            return "index.xhtml";
         }         
     }
     
@@ -386,7 +397,7 @@ public class PacienteBean {
    
     public String salvar(){
         PacienteController.getInstance().salvarPaciente(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, id, nome, sobrenome, cpf, rg, Utils.stringToDate(dataNascimento), new Endereco(new Cidade(cidade, estado, "Brasil"), logradouro, numero, bairro), new Telefone("55", residencialCodigoEstado, residencialPrefixo, residencialSufixo), new Telefone("55", celularcodiGoEstado, celularPrefixo, celularSufixo), email));
-        return "consultapaciente";
+        return "consultaPaciente.xhtml";
     }
     
     public String atualizar(){
@@ -394,7 +405,8 @@ public class PacienteBean {
             PacienteController.getInstance().atualizarPaciente(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, id, nome, sobrenome, cpf, rg, Utils.stringToDate(dataNascimento), new Endereco(new Cidade(cidade, estado, "Brasil"), logradouro, numero, bairro), new Telefone("55", residencialCodigoEstado, residencialPrefixo, residencialSufixo), new Telefone("55", celularcodiGoEstado, celularPrefixo, celularSufixo), email));
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            return "index.xhtml";
         }
-        return "consultapaciente";
+        return "consultaPaciente.xhtml";
     }
 }
