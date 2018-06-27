@@ -5,6 +5,13 @@
  */
 
  $(document).ready(function(){
+     $('.cep').mask('00000-000', {placeholder: "_____-___"});
+    $('.phone').mask('(00) 0000-0000', {placeholder: "(__) ____-____"});
+    $('.celular').mask('(00) 00000-0000', {placeholder: "(__) _____-____"});
+    $('.cpf').mask('000.000.000-00', {reverse: true, placeholder: "___.___.___-__"});
+    $('.cnpj').mask('00.000.000/0000-00', {reverse: true, placeholder: "__.___.___/____-__"});
+    $('.money').mask('000.000.000.000.000,00', {reverse: true});
+    $('.percent').mask('##0,00%', {reverse: true, placeholder: "%"});
     $('select').formSelect();
     $('.datepicker').datepicker({
         autoClose: true,
