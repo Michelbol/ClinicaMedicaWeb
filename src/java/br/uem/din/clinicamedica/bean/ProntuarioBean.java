@@ -113,9 +113,11 @@ public class ProntuarioBean {
             if(u != null){
                 return u.getTipo().menuProntuario();
             }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado!"));
                 return "index.xhtml";
             }
         }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
             return "index.xhtml";
         }
     }
@@ -130,6 +132,7 @@ public class ProntuarioBean {
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
             return u.getTipo().incluirProntuario(); 
         }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
             return "/index";
         }       
     }
@@ -142,6 +145,7 @@ public class ProntuarioBean {
             preencherBean(pBean);
             return u.getTipo().editarProntuario(id);
         }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
             return "/index";
         } 
     }
@@ -165,6 +169,7 @@ public class ProntuarioBean {
             if(u != null){
                 return u.getTipo().menuRelatorios();
             }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado!"));
                 return "index.xhtml";
             }
         }catch(Exception e){
@@ -186,6 +191,7 @@ public class ProntuarioBean {
             ProntuarioController.getInstance().atualizarPaciente(new Prontuario(id,pacienteTela,sintomas,diagnostico,prescricao,Utils.stringToDate(data)));
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            return "index.xhtml";
         }
         return "MEDICO_consultaProntuario.xhtml";
     }
