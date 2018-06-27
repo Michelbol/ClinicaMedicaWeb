@@ -44,13 +44,14 @@ and open the template in the editor.
                             <div class="row">
                                 <div class="input-field col s12" id="data">
                                     <label for='data'>Data</label>
-                                    <h:inputText id='data' value='#{ProntuarioBean.data}'  a:placeholder="DD/MM/AAAA"/>
+                                    <h:inputText id='data' value='#{ProntuarioBean.data}'  a:placeholder="DD/MM/AAAA" class="datepicker"/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12" id="paciente">
-                                    <h:selectOneMenu id="paciente" value="#{ProntuarioBean.paciente}">
+                                    <h:message id="mensagem-paciente" for="paciente"></h:message>
+                                    <h:selectOneMenu id="paciente" value="#{ProntuarioBean.paciente}" required="true" requiredMessage="Selecione um paciente!">
                                         <f:selectItems value="#{PacienteBean.listarPacientes()}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente.id}" />
                                     </h:selectOneMenu>
                                     <label for='paciente'>Paciente</label>
@@ -59,22 +60,25 @@ and open the template in the editor.
 
                             <div class="row">
                                 <div class="input-field col s12" id="sintomas">
+                                    <h:message id="mensagem-sintomas" for="sintomas" ></h:message>
                                     <label for='sintomas'>Sintomas</label>
-                                    <h:inputText id='sintomas' value='#{ProntuarioBean.sintomas}'/>
+                                    <h:inputText id='sintomas' value='#{ProntuarioBean.sintomas}' required="true" requiredMessage="Esse campo é obrigatório!"/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12" id="diagnostico">
+                                    <h:message id="mensagem-diagnostico" for="diagnostico" ></h:message>
                                     <label for='diagnostico'>Diagnostico</label>
-                                    <h:inputText id='diagnostico' value='#{ProntuarioBean.diagnostico}'/>
+                                    <h:inputText id='diagnostico' value='#{ProntuarioBean.diagnostico}' required="true" requiredMessage="Esse campo é obrigatório!"/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12" id="prescricao">
+                                    <h:message id="mensagem-prescricao" for="prescricao" ></h:message>
                                     <label for='prescricao'>Prescrição</label>
-                                    <h:inputText id='prescricao' value='#{ProntuarioBean.prescricao}'/>
+                                    <h:inputText id='prescricao' value='#{ProntuarioBean.prescricao}' required="true" requiredMessage="Esse campo é obrigatório!"/>
                                 </div>
                             </div>
 
