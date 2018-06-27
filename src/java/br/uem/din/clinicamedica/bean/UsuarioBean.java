@@ -80,6 +80,7 @@ public class UsuarioBean {
         HttpSession sess = ((HttpServletRequest) request).getSession(true);
         Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
         if(u == null){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado!"));
             return "index";
         }else{
             return u.getTipo().menu();
