@@ -71,5 +71,12 @@
                 ],
             weekdaysAbbrev: ['S','T','Q','Q','S','S','D']
         }
-    });    
-  });
+    });
+    $('span.error').each(function (elemento){
+        if($(this).text().length > 0){
+            $(this).attr('hidden', true);
+            M.toast({html: $(this).text()}); 
+        }
+    });
+        
+});

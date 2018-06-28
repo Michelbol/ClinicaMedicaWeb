@@ -333,9 +333,6 @@ public class PacienteBean {
         this.alergias = alergias;
     }
 
-    
-    
-
     public String consultaPacientes(ServletRequest request){
         try{
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
@@ -343,10 +340,11 @@ public class PacienteBean {
             if(u != null){
                 return u.getTipo().menuPaciente();
             }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
                 return "index.xhtml";
             }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
             return "index.xhtml";
         }
     }
@@ -359,9 +357,14 @@ public class PacienteBean {
         try{
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-            return u.getTipo().incluir(); 
+            if(u != null){
+                return u.getTipo().incluir();
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
             return "index.xhtml";
         }       
     }
@@ -370,11 +373,16 @@ public class PacienteBean {
         try{
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-            Paciente p = PacienteController.getInstance().findPaciente(pi.getId());
-            preencherBean(p);
-            return u.getTipo().editar(id);
+            if(u != null){
+                Paciente p = PacienteController.getInstance().findPaciente(pi.getId());
+                preencherBean(p);
+                return u.getTipo().editar(id);
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
             return "index.xhtml";
         } 
     }
@@ -383,10 +391,15 @@ public class PacienteBean {
         try{
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-            PacienteController.getInstance().excluirPaciente(p.getId());
-            return "consultaPaciente.xhtml";
+            if(u == null){
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }else{
+                PacienteController.getInstance().excluirPaciente(p.getId());
+                return "consultaPaciente.xhtml";
+            }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
             return "index.xhtml";
         }         
     }
@@ -395,18 +408,37 @@ public class PacienteBean {
         return TipoConvenio.values();
     }
    
-    public String salvar(){
-        PacienteController.getInstance().salvarPaciente(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, id, nome, sobrenome, cpf, rg, Utils.stringToDate(dataNascimento), new Endereco(new Cidade(cidade, estado, "Brasil"), logradouro, numero, bairro), new Telefone("55", residencialCodigoEstado, residencialPrefixo, residencialSufixo), new Telefone("55", celularcodiGoEstado, celularPrefixo, celularSufixo), email));
-        return "consultaPaciente.xhtml";
-    }
-    
-    public String atualizar(){
+    public String salvar(ServletRequest request){
         try{
-            PacienteController.getInstance().atualizarPaciente(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, id, nome, sobrenome, cpf, rg, Utils.stringToDate(dataNascimento), new Endereco(new Cidade(cidade, estado, "Brasil"), logradouro, numero, bairro), new Telefone("55", residencialCodigoEstado, residencialPrefixo, residencialSufixo), new Telefone("55", celularcodiGoEstado, celularPrefixo, celularSufixo), email));
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u == null){
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }else{
+                PacienteController.getInstance().salvarPaciente(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, id, nome, sobrenome, cpf, rg, Utils.stringToDate(dataNascimento), new Endereco(new Cidade(cidade, estado, "Brasil"), logradouro, numero, bairro), new Telefone("55", residencialCodigoEstado, residencialPrefixo, residencialSufixo), new Telefone("55", celularcodiGoEstado, celularPrefixo, celularSufixo), email));
+                return "consultaPaciente.xhtml";
+            }
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
             return "index.xhtml";
         }
-        return "consultaPaciente.xhtml";
+    }
+    
+    public String atualizar(ServletRequest request){
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u == null){
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }else{
+                PacienteController.getInstance().atualizarPaciente(new Paciente(tipoconvenio, isFumante, isAlcolatra, isColesterol, isDiabetico, doencasCardiacas, cirurgias, alergias, id, nome, sobrenome, cpf, rg, Utils.stringToDate(dataNascimento), new Endereco(new Cidade(cidade, estado, "Brasil"), logradouro, numero, bairro), new Telefone("55", residencialCodigoEstado, residencialPrefixo, residencialSufixo), new Telefone("55", celularcodiGoEstado, celularPrefixo, celularSufixo), email));
+                return "consultaPaciente.xhtml";
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            return "index.xhtml";
+        }
     }
 }

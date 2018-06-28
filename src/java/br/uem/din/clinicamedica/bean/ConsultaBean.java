@@ -104,10 +104,11 @@ public class ConsultaBean {
             if(u != null){
                 return "SECRETARIA_consultaMedica.xhtml";
             }else{
-                return "index.xhtml"; 
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
             }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
             return "index.xhtml";
         }    
     }
@@ -116,38 +117,88 @@ public class ConsultaBean {
         return TipoConsulta.values();
     }
     
-    public String incluir(){
-        return "SECRETARIA_incluirConsulta.xhtml";
-    }
-    
-    public String salvar(){
-        ConsultaController.getInstance().salvarConsulta(new Consulta(Utils.stringToDateTime(dataHora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
-        return "SECRETARIA_consultaMedica.xhtml";
-    }
-    
-    public String excluir(int id){
+    public String incluir(ServletRequest request){
         try{
-            ConsultaController.getInstance().excluirConsulta(id);
-            return "SECRETARIA_consultaMedica.xhtml";
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                return "SECRETARIA_incluirConsulta.xhtml";
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
+            return "index.xhtml";
+        }   
+    }
+    
+    public String salvar(ServletRequest request){
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                ConsultaController.getInstance().salvarConsulta(new Consulta(Utils.stringToDateTime(dataHora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
+                return "SECRETARIA_consultaMedica.xhtml";
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
+            return "index.xhtml";
+        }   
+    }
+    
+    public String excluir(ServletRequest request, int id){
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                ConsultaController.getInstance().excluirConsulta(id);
+                return "SECRETARIA_consultaMedica.xhtml";
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
             return "index.xhtml";
         }         
     }
     
-    public String editar(int id){
-            Consulta c = ConsultaController.getInstance().findConsulta(id);
-            preencherBean(c);
-            return "SECRETARIA_editarConsulta.xhtml";
+    public String editar(ServletRequest request, int id){
+            try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                Consulta c = ConsultaController.getInstance().findConsulta(id);
+                preencherBean(c);
+                return "SECRETARIA_editarConsulta.xhtml";
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            return "index.xhtml";
+        }  
     }
     
-    public String atualizar(){
+    public String atualizar(ServletRequest request){
         try{
-            ConsultaController.getInstance().atualizarConsulta(new Consulta(id,Utils.stringToDateTime(dataHora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                ConsultaController.getInstance().atualizarConsulta(new Consulta(id,Utils.stringToDateTime(dataHora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
+                return "SECRETARIA_consultaMedica.xhtml";
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
             return "index.xhtml";
         }
-        return "SECRETARIA_consultaMedica.xhtml";
     }
 }

@@ -77,13 +77,29 @@ public class UsuarioBean {
     }
     
     public String menu(ServletRequest request){
-        HttpSession sess = ((HttpServletRequest) request).getSession(true);
-        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        if(u == null){
-            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado!"));
-            return "index";
-        }else{
-            return u.getTipo().menu();
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u == null){
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado!"));
+                return "index.xhtml";
+            }else{
+                return u.getTipo().menu();
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
+            return "index.xhtml";
+        }
+    }
+    
+    public String sair(ServletRequest request){
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            sess.removeAttribute("UsuarioLogado");
+            return "index.xhtml";
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
+            return "index.xhtml";
         }
     }
 }
