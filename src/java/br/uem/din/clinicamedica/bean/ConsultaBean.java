@@ -212,4 +212,19 @@ public class ConsultaBean {
             return "index.xhtml";
         }
     }
+    public String telaRelatorio(ServletRequest request){
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                return "SECRETARIA_relatorio.xhtml";
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            return "index.xhtml";
+        }
+    }
 }
