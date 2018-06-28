@@ -32,12 +32,14 @@ public class Consulta {
     }
 
     public String getDataHora() {
-        String dt = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String data = null;        
+        String[] datahora = null;
+        SimpleDateFormat formatDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");        
         if(this.dataHora != null ){
-            dt = sdf.format(this.dataHora);
+            data = formatDateTime.format(this.dataHora);
+            datahora = data.split(" ");
         }
-        return dt;
+        return datahora[0] + " " + datahora[1];
     }
 
     public void setDataHora(Date dataHora) {

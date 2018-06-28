@@ -31,7 +31,8 @@ import javax.servlet.http.HttpSession;
 @RequestScoped
 public class ConsultaBean {
     private int id;
-    private String dataHora;
+    private String data;
+    private String hora;
     private int medico;
     private int paciente;
     private TipoConsulta tipo;
@@ -44,12 +45,20 @@ public class ConsultaBean {
         this.id = id;
     }
 
-    public String getDataHora() {
-        return dataHora;
-        }
+    public String getData() {
+        return data;
+    }
 
-    public void setDataHora(String dataHora) {
-        this.dataHora = dataHora;
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public int getMedico() {
@@ -79,7 +88,9 @@ public class ConsultaBean {
     public void preencherBean(Consulta c) {
         this.id         = c.getId();
         if(c.getDataHora() != null ){
-            this.dataHora   = c.getDataHora();
+            String datahora = c.getDataHora();
+            this.data   = datahora.split(" ")[0];
+            this.hora   = datahora.split(" ")[1];
         }
         this.medico     = c.getMedico().getId();
         this.paciente   = c.getPaciente().getId();
@@ -138,7 +149,7 @@ public class ConsultaBean {
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
             if(u != null){
-                ConsultaController.getInstance().salvarConsulta(new Consulta(Utils.stringToDateTime(dataHora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
+                ConsultaController.getInstance().salvarConsulta(new Consulta(Utils.stringToDateTime(data+" "+hora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
                 return "SECRETARIA_consultaMedica.xhtml";
             }else{
                 FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
@@ -190,7 +201,7 @@ public class ConsultaBean {
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
             if(u != null){
-                ConsultaController.getInstance().atualizarConsulta(new Consulta(id,Utils.stringToDateTime(dataHora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
+                ConsultaController.getInstance().atualizarConsulta(new Consulta(id,Utils.stringToDateTime(data+" "+hora), UsuarioController.getInstance().findUsuario(medico), PacienteController.getInstance().findPaciente(paciente), tipo));
                 return "SECRETARIA_consultaMedica.xhtml";
             }else{
                 FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));

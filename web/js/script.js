@@ -13,6 +13,18 @@
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
     $('.percent').mask('##0,00%', {reverse: true, placeholder: "%"});
     $('select').formSelect();
+    $('.timepicker').timepicker({
+        autoClose: true,
+        closeOnSelect: true,
+        container: 'main',
+        format: 'dd/mm/yyyy',
+        yearRange: [1920, 2100],
+        i18n: {
+            cancel: 'Cancelar',
+            done: 'Salvar'
+        },
+        twelveHour: false
+    });
     $('.datepicker').datepicker({
         autoClose: true,
         closeOnSelect: true,
