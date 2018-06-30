@@ -14,6 +14,7 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="../lib/materialize1/css/materialize.min.css" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <script src="../lib/materialize1/js/materialize.min.js"></script>
+        <script src="lib/jquerymask/dist/jquery.mask.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
         <script src="../js/script.js"></script>
         <title>Clinica Médica</title>
@@ -46,9 +47,13 @@ and open the template in the editor.
                         <h:form>
                             <h:inputHidden id="id" value='#{ProntuarioBean.id}' />
                             <div class="row">
-                                <div class="input-field col s12" id="data">
+                                 <div class="input-field col s6" id="data">
                                     <label for='data'>Data</label>
-                                    <h:inputText id='data' value='#{ProntuarioBean.data}'  a:placeholder="DD/MM/AAAA"/>
+                                    <h:inputText id='data' value='#{ProntuarioBean.data}'  a:placeholder="DD/MM/AAAA" class="datepicker"/>
+                                </div>
+                                <div class="input-field col s6" id="hora">
+                                    <label for='hora' class="label">Hora</label>
+                                    <h:inputText id='hora' value='#{ProntuarioBean.hora}' a:placeholder="HH:MM" class="timepicker"/>
                                 </div>
                             </div>
 
@@ -86,7 +91,7 @@ and open the template in the editor.
                             <div class="divider"></div>
                             <div class="section right-align">
                                 <h:commandLink class="waves-effect waves-light btn" value="Salvar" action="#{ProntuarioBean.atualizar()}"></h:commandLink>
-                                <a href="http://localhost:8080/ClinicaMedicaWeb/faces/MEDICO/consultaprontuario.xhtml" class="waves-effect waves-light btn grey">Cancelar</a>
+                                <a href="#{ProntuarioBean.consultaProntuarios(request)}" class="waves-effect waves-light btn grey">Cancelar</a>
                             </div>
                         </h:form>  
                     </div>

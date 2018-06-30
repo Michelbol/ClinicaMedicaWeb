@@ -5,6 +5,7 @@
  */
 package br.uem.din.clinicamedica.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -103,19 +104,38 @@ public class Prontuario {
         return "Prontuario{" + "Paciente=" + paciente + ", Medico=" + medico + ", sintomas=" + sintomas + ", diagnostico=" + diagnostico + ", prescricao=" + prescricao + '}';
     }
     
-    public static Date stringToDate(String data) {
-        String[] g = data.split("/");
-        int dia = Integer.parseInt(g[0]);
-        int mes = Integer.parseInt(g[1]) - 1;
-        int ano = Integer.parseInt(g[2]);
+    public static Date stringToDateTime(String data) {
+        System.out.println("Data: "+data);
+        String[] dateTime = data.split(" ");
+        System.out.println("DataTime: "+dateTime);
+        String[] date = dateTime[0].split("/");
+        System.out.println("date: "+date);
+        String[] time = dateTime[1].split(":");
+        System.out.println("Time: "+time);
+        int dia = Integer.parseInt(date[0]);
+        int mes = Integer.parseInt(date[1]) - 1;
+        int ano = Integer.parseInt(date[2]);
+        int hora = Integer.parseInt(time[0]);
+        int minuto = Integer.parseInt(time[1]);
         if (ano > 99) {
             ano = ano - 1900;
         }
         if (ano < 50) {
             ano = ano + 2000;
         }
-        Date dt = new Date(ano, mes, dia);
+        Date dt = new Date(ano, mes, dia, hora, minuto);
         System.out.println(dt.toString());
         return dt;
+    }
+    
+    public String getDataHora() {
+        String data = null;        
+        String[] datahora = null;
+        SimpleDateFormat formatDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm");        
+        if(this.data != null ){
+            data = formatDateTime.format(this.data);
+            datahora = data.split(" ");
+        }
+        return datahora[0] + " " + datahora[1];
     }
 }
