@@ -41,6 +41,10 @@ public class Consulta {
         }
         return datahora[0] + " " + datahora[1];
     }
+    
+    public Date getDataHoraDate(){
+        return this.dataHora;
+    }
 
     public void setDataHora(Date dataHora) {
         this.dataHora = dataHora;

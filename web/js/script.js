@@ -13,6 +13,8 @@
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
     $('.percent').mask('##0,00%', {reverse: true, placeholder: "%"});
     $('select').formSelect();
+    $('.tooltipped').tooltip();
+    $('.fixed-action-btn').floatingActionButton();
     $('.timepicker').timepicker({
         autoClose: true,
         closeOnSelect: true,

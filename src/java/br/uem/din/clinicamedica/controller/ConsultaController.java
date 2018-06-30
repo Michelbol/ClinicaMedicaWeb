@@ -6,8 +6,15 @@
 package br.uem.din.clinicamedica.controller;
 
 import br.uem.din.clinicamedica.model.Consulta;
+import br.uem.din.clinicamedica.model.Paciente;
+import br.uem.din.clinicamedica.model.Usuario;
+import br.uem.din.clinicamedica.model.utils.TipoConsulta;
+import br.uem.din.clinicamedica.model.utils.Utils;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -68,5 +75,49 @@ public class ConsultaController {
             i+=1;
         }
         return false;
+    }
+    
+    public List<Consulta> relatorioConsulta(String filtroDataInicial, String filtroDataFinal, String filtroHoraInicial,
+            String filtroHoraFinal, int filtroMedico, int filtroPaciente, TipoConsulta filtroTipo){
+        List<Consulta> consulta_filtrada = new ArrayList();
+        Usuario medicoFiltrado = null;
+        Paciente pacienteFiltrado = null;
+        try{
+            
+            for(Consulta c : this.consultas){
+                if(filtroMedico > 0){
+                    medicoFiltrado = UsuarioController.getInstance().findUsuario(filtroMedico);
+                }
+                if(filtroPaciente > 0){
+                    pacienteFiltrado = PacienteController.getInstance().findPaciente(filtroPaciente);
+                }
+                if(filtroHoraInicial.length() == 0){
+                    filtroHoraInicial = "00:00";
+                }
+                if(filtroDataInicial.length() == 0){
+                    filtroDataInicial = "01/01/51";
+                }
+                if(filtroHoraFinal.length() == 0){
+                    filtroHoraFinal = "23:59";
+                }
+                if(filtroDataFinal.length() == 0){
+                    filtroDataFinal = "31/12/2100";
+                }
+                 
+                if(((filtroMedico == 0) ? true : (c.getMedico() == medicoFiltrado))&& 
+                        ((filtroPaciente == 0) ? true : (pacienteFiltrado == c.getPaciente()))&& 
+                        ((
+                            TipoConsulta.Normal.equals(filtroTipo) || (TipoConsulta.Retorno.equals(filtroTipo))) ?
+                            (filtroTipo == c.getTipo()) : true
+                        )&&
+                        (c.getDataHoraDate().after(Utils.stringToDateTime(filtroDataInicial+" "+filtroHoraInicial)))&&
+                        (c.getDataHoraDate().before(Utils.stringToDateTime(filtroDataFinal+" "+filtroHoraFinal)))){
+                    consulta_filtrada.add(c);
+                }
+            }
+            return consulta_filtrada;
+        }catch(Exception e){
+            return null;
+        }
     }
 }
