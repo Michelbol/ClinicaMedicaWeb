@@ -36,6 +36,7 @@ public class ProntuarioBean {
     private String diagnostico;
     private String prescricao;
     private String data;
+    private String hora;
     
     public void preencherBean(Prontuario prontuario) {
         this.id = prontuario.getId();
@@ -44,9 +45,11 @@ public class ProntuarioBean {
         this.sintomas = prontuario.getSintomas();
         this.diagnostico = prontuario.getDiagnostico();
         this.prescricao = prontuario.getPrescricao();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        if(prontuario.getData() != null ){
-            this.data = sdf.format(prontuario.getData());
+        
+        if(prontuario.getDataHora() != null ){
+            String datahora = prontuario.getDataHora();
+            this.data   = datahora.split(" ")[0];
+            this.hora   = datahora.split(" ")[1];
         }
     }
 
@@ -105,6 +108,24 @@ public class ProntuarioBean {
     public void setData(String data) {
         this.data = data;
     }
+
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+    
+    
  
     public String consultaProntuarios(ServletRequest request){
         try{
@@ -181,14 +202,14 @@ public class ProntuarioBean {
         HttpSession sess = ((HttpServletRequest) request).getSession(true);
         Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
         Paciente pacienteTela = PacienteController.getInstance().findPaciente(idPaciente);
-        ProntuarioController.getInstance().salvarProntuario(new Prontuario(pacienteTela,u,sintomas,diagnostico,prescricao,Utils.stringToDate(data)));
+        ProntuarioController.getInstance().salvarProntuario(new Prontuario(pacienteTela,u,sintomas,diagnostico,prescricao,Utils.stringToDateTime(data+" "+hora)));
         return "MEDICO_consultaProntuario.xhtml";
     }
     
     public String atualizar(){
         try{
             Paciente pacienteTela = PacienteController.getInstance().findPaciente(idPaciente);
-            ProntuarioController.getInstance().atualizarPaciente(new Prontuario(id,pacienteTela,sintomas,diagnostico,prescricao,Utils.stringToDate(data)));
+            ProntuarioController.getInstance().atualizarPaciente(new Prontuario(id,pacienteTela,sintomas,diagnostico,prescricao,Utils.stringToDateTime(data+" "+hora)));
         }catch(Exception e){
             FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
             return "index.xhtml";

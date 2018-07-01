@@ -12,6 +12,7 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="../lib/materialize1/css/materialize.min.css" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <script src="../lib/materialize1/js/materialize.min.js"></script>
+        <script src="lib/jquerymask/dist/jquery.mask.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
         <title>Clinica Médica</title>
     </h:head>
@@ -45,7 +46,7 @@ and open the template in the editor.
                     <h:dataTable value="#{ProntuarioBean.listarProntuarios()}" var="prontuario">
                         <h:column>
                             <f:facet name="header">
-                                Data
+                                Data e Hora
                             </f:facet>
                             #{prontuario.data}
                         </h:column>
