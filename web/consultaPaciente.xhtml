@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <link rel="stylesheet" type="text/css" href="../lib/materialize1/css/materialize.min.css" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -43,8 +44,19 @@ and open the template in the editor.
                 </nav>
                 <br/>
                 <h:form>
-                    <h:commandLink class="waves-effect waves-light btn" id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandLink>
-                    <h:message for="incluir"></h:message>
+                    <div class="">
+                        <div class="col s2">
+                            <h:commandLink class="waves-effect waves-light btn" id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandLink>
+                        </div>
+                        <div class="input-field col s8" id="filtro_nome">
+                            <h:message id='mensagem-filtro-nome' for='filtro_nome'></h:message>
+                            <label for='filtro_nome' class="label">Nome</label>
+                            <h:inputText id='filtro_nome' value='#{PacienteBean.filtro_nome}' a:placeholder="Para pesquisar digite..."/>
+                        </div>  
+                        <div class="col s2">
+                            <button class="btn waves-effect waves-light" type="submit" id='pesquisar' value='Pesquisar'>Pesquisar</button>
+                        </div>
+                    </div>
                     <h:dataTable value="#{PacienteBean.listarPacientes()}" var="paciente">
                         <h:column>
                             <f:facet name="header">

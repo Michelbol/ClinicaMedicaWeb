@@ -60,6 +60,8 @@ public class PacienteBean {
     private String doencasCardiacas;
     private String cirurgias;
     private String alergias;
+    private String filtro_nome;
+    private List<Paciente> pacientes;
 
     public void preencherBean(Paciente p) {
         this.id = p.getId();
@@ -97,6 +99,14 @@ public class PacienteBean {
     }
 
     public PacienteBean() {
+    }
+
+    public String getFiltro_nome() {
+        return filtro_nome;
+    }
+
+    public void setFiltro_nome(String filtro_nome) {
+        this.filtro_nome = filtro_nome;
     }
     
     public int getId() {
@@ -350,7 +360,8 @@ public class PacienteBean {
     }
     
     public List<Paciente> listarPacientes(){
-        return PacienteController.getInstance().listarPacientes();
+        pacientes = PacienteController.getInstance().pesquisarPacientes(filtro_nome);
+        return pacientes;
     }
     
     public String incluir(ServletRequest request){

@@ -100,8 +100,7 @@ public enum TipoUsuario implements menu{
         if (ano < 50) {
             ano = ano + 2000;
         }
-        Date dt = new Date(ano, mes, dia);
-        System.out.println(dt.toString());
+        Date dt = new Date(ano, mes, dia);        
         return dt;
     }
     

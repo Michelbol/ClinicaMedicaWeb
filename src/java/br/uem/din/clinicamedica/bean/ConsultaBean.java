@@ -173,7 +173,9 @@ public class ConsultaBean {
     }
     
     public List<Consulta> listarConsultas(){
-        return ConsultaController.getInstance().listarConsultas();
+        this.lista_filtrada = ConsultaController.getInstance().relatorioConsulta(filtroDataInicial, filtroDataFinal, 
+                        filtroHoraInicial, filtroHoraFinal, filtroMedico, filtroPaciente, filtroTipo);
+        return this.lista_filtrada;
     }
     
     public List<Usuario> listarMedicos(){
@@ -352,8 +354,6 @@ public class ConsultaBean {
             String[] datahora_final = null;       
             data_final = formatDateTime.format(hoje_noite);
             datahora_final = data_final.split(" ");
-            System.out.println("Hoje: " + datahora[0] + " " + datahora[1]);
-            System.out.println("Hoje Anoite: " + datahora_final[0] + " " + datahora_final[1]);
             this.lista_filtrada = ConsultaController.getInstance().relatorioConsulta(datahora[0], datahora_final[0], 
                         datahora[1], datahora_final[1], 0, 0, null);
             return this.lista_filtrada;

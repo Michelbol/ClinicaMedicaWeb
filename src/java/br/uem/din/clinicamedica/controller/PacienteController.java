@@ -43,6 +43,21 @@ public class PacienteController {
         return this.pacientes;
     }
     
+    public List<Paciente> pesquisarPacientes(String nome){
+        List<Paciente> paciente_filtrado = new ArrayList();
+        for(Paciente p : this.pacientes){
+            if(nome == null || nome.length() == 0){
+                paciente_filtrado.add(p);
+            }else{
+               if(p.getNome().toLowerCase().contains(nome.toLowerCase())){
+                    paciente_filtrado.add(p);
+                } 
+            }
+            
+        }
+        return paciente_filtrado;
+    }
+    
     public Paciente findPaciente(int id){
         for(Paciente p : this.pacientes){
             if(p.getId() == id){

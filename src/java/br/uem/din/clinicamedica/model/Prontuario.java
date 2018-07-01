@@ -115,7 +115,6 @@ public class Prontuario {
             ano = ano + 2000;
         }
         Date dt = new Date(ano, mes, dia);
-        System.out.println(dt.toString());
         return dt;
     }
 }

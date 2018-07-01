@@ -97,13 +97,9 @@ public class Consulta {
     }
     
     public static Date stringToDateTime(String data) {
-        System.out.println("Data: "+data);
         String[] dateTime = data.split(" ");
-        System.out.println("DataTime: "+dateTime);
         String[] date = dateTime[0].split("/");
-        System.out.println("date: "+date);
         String[] time = dateTime[1].split(":");
-        System.out.println("Time: "+time);
         int dia = Integer.parseInt(date[0]);
         int mes = Integer.parseInt(date[1]) - 1;
         int ano = Integer.parseInt(date[2]);
