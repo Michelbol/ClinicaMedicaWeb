@@ -33,48 +33,59 @@ and open the template in the editor.
         <main>
             <div class="row">
                 <div class="container">
-                <h1>Prontuarios</h1>
+                <h1>Pacientes</h1>
                 <nav>
                     <div class="nav-wrapper blue">
                         <div class="col s12">
                             <a href="#{UsuarioBean.menu(request)}" class="breadcrumb">Home</a>
-                            <a class="breadcrumb">Consulta Prontuários</a>
+                            <a class="breadcrumb">Consulta Paciente</a>
                         </div>
-                    </div>
+                  </div>
                 </nav>
                 <br/>
                 <h:form>
-                    <h:commandLink class="waves-effect waves-light btn" id='incluir' value='Incluir' action="#{ProntuarioBean.incluir(request)}"></h:commandLink>
-                    <h:message for="incluir"></h:message>
-                    <h:dataTable value="#{ProntuarioBean.listarProntuarios()}" var="prontuario">
+                    <div class="">
+                        <div class="col s2">
+                            <h:commandLink class="waves-effect waves-light btn" id='incluir' value='Incluir' action="#{PacienteBean.incluir(request)}"></h:commandLink>
+                        </div>
+                        <div class="input-field col s8" id="filtro_nome">
+                            <h:message id='mensagem-filtro-nome' for='filtro_nome'></h:message>
+                            <label for='filtro_nome' class="label">Nome</label>
+                            <h:inputText id='filtro_nome' value='#{PacienteBean.filtro_nome}' a:placeholder="Para pesquisar digite..."/>
+                        </div>  
+                        <div class="col s2">
+                            <button class="btn waves-effect waves-light" type="submit" id='pesquisar' value='Pesquisar'>Pesquisar</button>
+                        </div>
+                    </div>
+                    <h:dataTable value="#{PacienteBean.listarPacientes()}" var="paciente">
                         <h:column>
                             <f:facet name="header">
-                                Data e Hora
+                                id
                             </f:facet>
-                            #{prontuario.data}
+                            #{paciente.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Nome
+                            </f:facet>
+                            #{paciente.nome}
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">
-                                Paciente
+                                Endereço
                             </f:facet>
-                            #{prontuario.paciente.getNome()}
+                            #{paciente.endereco}
                         </h:column>
                         
                         <h:column>
                             <f:facet name="header">
-                                Medico
-                            </f:facet>
-                            #{prontuario.medico.getNome()}
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">
                                 Ações
                             </f:facet>
-                            <h:commandLink class="waves-effect waves-light btn" id='editar' value='Editar' action="#{ProntuarioBean.editar(request, prontuario)}"></h:commandLink>
+                            
+                            <h:commandLink class="waves-effect waves-light btn" id='editar' value='Editar' action="#{PacienteBean.editar(request, paciente)}"></h:commandLink>
                             <span></span>
-                            <h:commandLink class="waves-effect waves-light btn" id='excluir' value='Excluir' action="#{ProntuarioBean.excluir(request, prontuario)}"></h:commandLink>
+                            <h:commandLink class="waves-effect waves-light btn" id='excluir' value='Excluir' action="#{PacienteBean.excluir(request, paciente)}"></h:commandLink>
                         </h:column>
 
                     </h:dataTable>

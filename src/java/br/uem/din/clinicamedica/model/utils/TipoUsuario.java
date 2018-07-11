@@ -23,7 +23,7 @@ public enum TipoUsuario implements menu{
 
         @Override
         public String menuPaciente() {
-            return "consultaPaciente.xhtml";
+            return "MEDICO_consultaPaciente.xhtml";
         }
         
         @Override

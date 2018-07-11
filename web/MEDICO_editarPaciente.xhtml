@@ -12,9 +12,10 @@ and open the template in the editor.
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../lib/materialize1/css/materialize.min.css" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <script src="../lib/materialize1/js/materialize.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <script src="lib/jquerymask/dist/jquery.mask.min.js"></script>
         <script src="../js/script.js"></script>
         <title>Clinica Médica</title>
     </head>
@@ -176,12 +177,21 @@ and open the template in the editor.
                             </div>
                             <div class="divider"></div>
                             <div class="section right-align">
-                                <h:commandLink class="waves-effect waves-light btn" value="Salvar" action="#{PacienteBean.atualizar()}" ></h:commandLink>
-                                <a href="http://localhost:8080/ClinicaMedicaWeb/faces/consultaPaciente.xhtml" class="waves-effect waves-light btn grey">Cancelar</a>
+                                <h:commandLink class="waves-effect waves-light btn" value="Salvar" action="#{PacienteBean.atualizar(request)}" ></h:commandLink>
+                                <a href="#{PacienteBean.consultaPacientes(request)}" class="waves-effect waves-light btn grey">Cancelar</a>
                             </div>
                         </h:form>  
                     </div>
                 </div>
+            </div>
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large red">
+                  <i class="large material-icons">add</i>
+                </a>
+                <ul>
+                    <li><a href="#{PacienteBean.incluir(request)}" class="btn-floating blue darken-1 tooltipped" data-position="left" data-tooltip="Adicionar Paciente"><i class="material-icons">person_add</i></a></li>
+                    <li><a href="#{ProntuarioBean.incluir(request)}" class="btn-floating red darken-1 tooltipped" data-position="left" data-tooltip="Adicionar Prontuário"><i class="material-icons">content_paste</i></a></li>
+                </ul>
             </div>
         </main>
         <footer class="page-footer blue">
@@ -202,7 +212,6 @@ and open the template in the editor.
             <div class="footer-copyright">
                 <div class="container">
                     © 2018 Copyright
-                    <a class="grey-text text-lighten-4 right">MichelBolzon</a>
                 </div>
             </div>
         </footer>
