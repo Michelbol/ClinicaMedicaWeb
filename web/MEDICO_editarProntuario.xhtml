@@ -12,10 +12,10 @@ and open the template in the editor.
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../lib/materialize1/css/materialize.min.css" />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <script src="../lib/materialize1/js/materialize.min.js"></script>
-        <script src="lib/jquerymask/dist/jquery.mask.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <script src="lib/jquerymask/dist/jquery.mask.min.js"></script>
         <script src="../js/script.js"></script>
         <title>Clinica Médica</title>
     </head>
@@ -34,7 +34,7 @@ and open the template in the editor.
             <div class="row">
                 <div class="container">
                     <div class="col s12">
-                        <h1>Incluir Prontuario</h1>
+                        <h1>Editar Prontuario</h1>
                         <nav>
                             <div class="nav-wrapper blue">
                                 <div class="col s12">
@@ -47,20 +47,22 @@ and open the template in the editor.
                         <h:form>
                             <h:inputHidden id="id" value='#{ProntuarioBean.id}' />
                             <div class="row">
-                                 <div class="input-field col s6" id="data">
+                                <div class="input-field col s6" id="data">
+                                    <h:message id="mensagem-data" for="data"></h:message>
                                     <label for='data'>Data</label>
-                                    <h:inputText id='data' value='#{ProntuarioBean.data}'  a:placeholder="DD/MM/AAAA" class="datepicker"/>
+                                    <h:inputText id='data' value='#{ProntuarioBean.data}'  a:placeholder="DD/MM/AAAA" class="datepicker" required="true" requiredMessage="Esse campo é obrigatório!"/>
                                 </div>
                                 <div class="input-field col s6" id="hora">
+                                    <h:message id="mensagem-hora" for="hora"></h:message>
                                     <label for='hora' class="label">Hora</label>
-                                    <h:inputText id='hora' value='#{ProntuarioBean.hora}' a:placeholder="HH:MM" class="timepicker"/>
+                                    <h:inputText id='hora' value='#{ProntuarioBean.hora}' a:placeholder="HH:MM" class="timepicker" required="true" requiredMessage="Esse campo é obrigatório!"/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12" id="paciente">
                                     <h:message id="mensagem-paciente" for="paciente"></h:message>
-                                    <h:selectOneMenu id="paciente" value="#{ProntuarioBean.paciente}" required="true">
+                                    <h:selectOneMenu id="paciente" value="#{ProntuarioBean.paciente}" required="true" requiredMessage="Selecione um paciente!">
                                         <f:selectItems value="#{PacienteBean.listarPacientes()}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente.id}" />
                                     </h:selectOneMenu>
                                     <label for='paciente'>Paciente</label>
@@ -69,22 +71,25 @@ and open the template in the editor.
 
                             <div class="row">
                                 <div class="input-field col s12" id="sintomas">
+                                    <h:message id="mensagem-sintomas" for="sintomas" ></h:message>
                                     <label for='sintomas'>Sintomas</label>
-                                    <h:inputText id='sintomas' value='#{ProntuarioBean.sintomas}'/>
+                                    <h:inputText id='sintomas' value='#{ProntuarioBean.sintomas}' required="true" requiredMessage="Esse campo é obrigatório!"/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12" id="diagnostico">
+                                    <h:message id="mensagem-diagnostico" for="diagnostico" ></h:message>
                                     <label for='diagnostico'>Diagnostico</label>
-                                    <h:inputText id='diagnostico' value='#{ProntuarioBean.diagnostico}'/>
+                                    <h:inputText id='diagnostico' value='#{ProntuarioBean.diagnostico}' required="true" requiredMessage="Esse campo é obrigatório!"/>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12" id="prescricao">
+                                    <h:message id="mensagem-prescricao" for="prescricao" ></h:message>
                                     <label for='prescricao'>Prescrição</label>
-                                    <h:inputText id='prescricao' value='#{ProntuarioBean.prescricao}'/>
+                                    <h:inputText id='prescricao' value='#{ProntuarioBean.prescricao}' required="true" requiredMessage="Esse campo é obrigatório!"/>
                                 </div>
                             </div>
 
@@ -93,7 +98,7 @@ and open the template in the editor.
                                 <h:commandLink class="waves-effect waves-light btn" value="Salvar" action="#{ProntuarioBean.atualizar()}"></h:commandLink>
                                 <a href="#{ProntuarioBean.consultaProntuarios(request)}" class="waves-effect waves-light btn grey">Cancelar</a>
                             </div>
-                        </h:form>  
+                        </h:form>   
                     </div>
                 </div>
             </div>

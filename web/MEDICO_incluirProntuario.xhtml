@@ -47,12 +47,14 @@ and open the template in the editor.
                         <h:form>
                             <div class="row">
                                 <div class="input-field col s6" id="data">
+                                    <h:message id="mensagem-data" for="data"></h:message>
                                     <label for='data'>Data</label>
-                                    <h:inputText id='data' value='#{ProntuarioBean.data}'  a:placeholder="DD/MM/AAAA" class="datepicker"/>
+                                    <h:inputText id='data' value='#{ProntuarioBean.data}'  a:placeholder="DD/MM/AAAA" class="datepicker" required="true" requiredMessage="Esse campo é obrigatório!"/>
                                 </div>
                                 <div class="input-field col s6" id="hora">
+                                    <h:message id="mensagem-hora" for="hora"></h:message>
                                     <label for='hora' class="label">Hora</label>
-                                    <h:inputText id='hora' value='#{ProntuarioBean.hora}' a:placeholder="HH:MM" class="timepicker"/>
+                                    <h:inputText id='hora' value='#{ProntuarioBean.hora}' a:placeholder="HH:MM" class="timepicker" required="true" requiredMessage="Esse campo é obrigatório!"/>
                                 </div>
                             </div>
 
