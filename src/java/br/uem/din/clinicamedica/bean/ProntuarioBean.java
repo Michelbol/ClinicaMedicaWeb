@@ -12,6 +12,7 @@ import br.uem.din.clinicamedica.model.Prontuario;
 import br.uem.din.clinicamedica.model.Usuario;
 import br.uem.din.clinicamedica.model.utils.Utils;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -222,7 +223,7 @@ public class ProntuarioBean {
             if(u != null){
                 Prontuario pBean = ProntuarioController.getInstance().findProntuario(id);
                 preencherBean(pBean);
-                return u.getTipo().editarProntuario(id);
+                return u.getTipo().editarProntuario();
             }else{
                 FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
                 return "index.xhtml";

@@ -128,7 +128,7 @@ public enum TipoUsuario implements menu{
         return "MEDICO_incluirProntuario.xhtml";
     }
     
-    public String editarProntuario(int id){
+    public String editarProntuario(){
         return "MEDICO_editarProntuario.xhtml";
     }
 }
