@@ -82,9 +82,19 @@ public class ConsultaController {
         List<Consulta> consulta_filtrada = new ArrayList();
         Usuario medicoFiltrado = null;
         Paciente pacienteFiltrado = null;
-        try{
-            
             for(Consulta c : this.consultas){
+                if(filtroHoraInicial == null){
+                    filtroHoraInicial = "";
+                }
+                if(filtroDataInicial == null){
+                    filtroDataInicial = "";
+                }
+                if(filtroHoraFinal == null){
+                    filtroHoraFinal = "";
+                }
+                if(filtroDataFinal == null){
+                    filtroDataFinal = "";   
+                }
                 if(filtroMedico > 0){
                     medicoFiltrado = UsuarioController.getInstance().findUsuario(filtroMedico);
                 }
@@ -116,8 +126,5 @@ public class ConsultaController {
                 }
             }
             return consulta_filtrada;
-        }catch(Exception e){
-            return null;
-        }
     }
 }
