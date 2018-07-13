@@ -5,8 +5,14 @@
  */
 package br.uem.din.clinicamedica.model;
 
+import br.uem.din.clinicamedica.controller.PacienteController;
+import br.uem.din.clinicamedica.controller.UsuarioController;
+import static br.uem.din.clinicamedica.model.Consulta.stringToDateTime;
+import br.uem.din.clinicamedica.model.utils.TipoConsulta;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -133,5 +139,30 @@ public class Prontuario {
             datahora = data.split(" ");
         }
         return datahora[0] + " " + datahora[1];
+    }
+    
+    public static List<Prontuario> povoarProntuario() {
+        List<Prontuario> prontuarios = new ArrayList();
+        
+        Prontuario p = new Prontuario();
+        p.setData(stringToDateTime("12/07/2018 08:00"));
+        p.setId(0);
+        p.setMedico(UsuarioController.getInstance().listarUsuarios().get(2));
+        p.setPaciente(PacienteController.getInstance().listarPacientes().get(1));
+        p.setDiagnostico("Gripe");
+        p.setPrescricao("Resfenol");
+        p.setSintomas("Tosse");
+        prontuarios.add(p);
+        p = new Prontuario();
+        p.setData(stringToDateTime("11/07/2018 10:00"));        
+        p.setId(1);
+        p.setMedico(UsuarioController.getInstance().listarUsuarios().get(2));
+        p.setPaciente(PacienteController.getInstance().listarPacientes().get(0));
+        p.setDiagnostico("Dengue");
+        p.setPrescricao("Repouso e remedio de dengue");
+        p.setSintomas("Dor de Cabeça, dor no corpo, manchas pelo corpo");
+        prontuarios.add(p); 
+        
+        return prontuarios;
     }
 }

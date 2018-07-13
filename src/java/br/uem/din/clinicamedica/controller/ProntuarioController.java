@@ -5,7 +5,9 @@
  */
 package br.uem.din.clinicamedica.controller;
 
+import br.uem.din.clinicamedica.model.Paciente;
 import br.uem.din.clinicamedica.model.Prontuario;
+import br.uem.din.clinicamedica.model.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class ProntuarioController {
 
     public ProntuarioController() {
         this.prontuario = new ArrayList<>();
-        //this.prontuario = Prontuario.povoarProntuario();
+        this.prontuario = Prontuario.povoarProntuario();
     }
     
     public static ProntuarioController getInstance() {
@@ -70,4 +72,52 @@ public class ProntuarioController {
         }
         return false;
     }
+    
+    public List<Prontuario> relatorioProntuario(String filtroDataInicial, String filtroDataFinal, String filtroHoraInicial,
+            String filtroHoraFinal, int filtroPaciente){
+        
+        List<Prontuario> prontuario_filtrado = new ArrayList();
+        
+        Paciente pacienteFiltrado = null;
+     
+        try{
+            for(Prontuario p : this.prontuario){
+                if(filtroHoraInicial==null){
+                    filtroHoraInicial = "";
+                }
+                if(filtroDataInicial==null){
+                    filtroDataInicial = "";
+                }
+                if(filtroHoraFinal==null){
+                    filtroHoraFinal = "";
+                }
+                if(filtroDataFinal==null){
+                    filtroDataFinal = "";
+                }
+                
+                if(filtroHoraInicial.length() == 0){
+                    filtroHoraInicial = "00:00";
+                }
+                if(filtroDataInicial.length() == 0){
+                    filtroDataInicial = "01/01/51";
+                }
+                if(filtroHoraFinal.length() == 0){
+                    filtroHoraFinal = "23:59";
+                }
+                if(filtroDataFinal.length() == 0){
+                    filtroDataFinal = "31/12/2100";
+                }
+                if(filtroPaciente>0) pacienteFiltrado = PacienteController.getInstance().findPaciente(filtroPaciente);
+                 
+                if((pacienteFiltrado==null||pacienteFiltrado.equals(p.getPaciente()))&&
+                   (p.getData().after(Utils.stringToDateTime(filtroDataInicial+" "+filtroHoraInicial)))&&
+                   (p.getData().before(Utils.stringToDateTime(filtroDataFinal+" "+filtroHoraFinal)))){
+                    prontuario_filtrado.add(p);
+                }
+            }
+            return prontuario_filtrado;
+        }catch(Exception e){
+            return null;
+        }
+    }        
 }
