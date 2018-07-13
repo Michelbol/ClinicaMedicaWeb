@@ -33,20 +33,17 @@ and open the template in the editor.
         <main>
             <div class="row">
                 <div class="container">
-                <h1>Prontuarios</h1>
+                <h1>Relatório Pacientes Atendidos</h1>
                 <nav>
                     <div class="nav-wrapper blue">
                         <div class="col s12">
                             <a href="#{UsuarioBean.menu(request)}" class="breadcrumb">Home</a>
-                            <a class="breadcrumb">Consulta Prontuários</a>
+                            <a class="breadcrumb"> Relatório Pacientes Atendidos</a>
                         </div>
                     </div>
                 </nav>
                 <br/>
-                <h:form>
-                    <div class="col s2">
-                        <h:commandLink class="waves-effect waves-light btn" id='incluir' value='Incluir' action="#{ProntuarioBean.incluir(request)}"></h:commandLink>
-                    </div>  
+                <h:form> 
                     <div class="input-field col s2" id="filtro_data_inicial">
                         <label for='filtro_data_inicial' class="label">Data Inicial</label>
                         <h:inputText id='filtro_data_inicial' value='#{ProntuarioBean.filtroDataInicial}' class="datepicker"/>
@@ -63,6 +60,13 @@ and open the template in the editor.
                         <label for='filtro_hora_final' class="label">Hora Final</label>
                         <h:inputText id='filtro_hora_final' value='#{ProntuarioBean.filtroHoraFinal}' class="timepicker"/>
                     </div>  
+                    <div class="input-field col s4" id="filtro_paciente">
+                        <h:selectOneMenu id="filtro_paciente" value="#{ProntuarioBean.filtroPaciente}">
+                            <f:selectItem itemLabel="Nenhum" itemValue="0"></f:selectItem>
+                            <f:selectItems value="#{PacienteBean.listarPacientes()}" var="paciente" itemLabel="#{paciente.nome}" itemValue="#{paciente.id}" />
+                         </h:selectOneMenu>
+                        <label for='filtro_paciente'>Paciente</label>
+                    </div> 
                     <div class="col s2" style="height: 30px">
                         <button class="btn waves-effect waves-light" type="submit" id='pesquisar' value='Pesquisar'>Pesquisar</button>
                     </div>
@@ -91,11 +95,10 @@ and open the template in the editor.
 
                         <h:column>
                             <f:facet name="header">
-                                Ações
+                                Diagnóstico
                             </f:facet>
-                            <h:commandLink class="waves-effect waves-light btn" id='editar' value='Editar' action="#{ProntuarioBean.editar(request, prontuario.id)}"></h:commandLink>
-                            <span></span>
-                            <h:commandLink class="waves-effect waves-light btn" id='excluir' value='Excluir' action="#{ProntuarioBean.excluir(request, prontuario.id)}"></h:commandLink>
+                            #{prontuario.diagnostico}
+                            
                         </h:column>
 
                     </h:dataTable>

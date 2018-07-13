@@ -12,6 +12,7 @@ import br.uem.din.clinicamedica.model.Prontuario;
 import br.uem.din.clinicamedica.model.Usuario;
 import br.uem.din.clinicamedica.model.utils.Utils;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -37,6 +38,12 @@ public class ProntuarioBean {
     private String prescricao;
     private String data;
     private String hora;
+    private String filtroDataInicial;
+    private String filtroDataFinal;
+    private String filtroHoraInicial;
+    private String filtroHoraFinal;
+    private int filtroPaciente;
+    private List<Prontuario> lista_filtrada;
     
     public void preencherBean(Prontuario prontuario) {
         this.id = prontuario.getId();
@@ -125,6 +132,46 @@ public class ProntuarioBean {
         this.hora = hora;
     }
     
+    public String getFiltroDataInicial() {
+        return filtroDataInicial;
+    }
+
+    public void setFiltroDataInicial(String filtroDataInicial) {
+        this.filtroDataInicial = filtroDataInicial;
+    }
+
+    public String getFiltroDataFinal() {
+        return filtroDataFinal;
+    }
+
+    public void setFiltroDataFinal(String filtroDataFinal) {
+        this.filtroDataFinal = filtroDataFinal;
+    }
+
+    public String getFiltroHoraInicial() {
+        return filtroHoraInicial;
+    }
+
+    public void setFiltroHoraInicial(String filtroHoraInicial) {
+        this.filtroHoraInicial = filtroHoraInicial;
+    }
+
+    public String getFiltroHoraFinal() {
+        return filtroHoraFinal;
+    }
+
+    public void setFiltroHoraFinal(String filtroHoraFinal) {
+        this.filtroHoraFinal = filtroHoraFinal;
+    }
+
+    public int getFiltroPaciente() {
+        return filtroPaciente;
+    }
+
+    public void setFiltroPaciente(int filtroPaciente) {
+        this.filtroPaciente = filtroPaciente;
+    }
+    
     
  
     public String consultaProntuarios(ServletRequest request){
@@ -134,11 +181,11 @@ public class ProntuarioBean {
             if(u != null){
                 return u.getTipo().menuProntuario();
             }else{
-                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado!"));
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
                 return "index.xhtml";
             }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
             return "index.xhtml";
         }
     }
@@ -147,40 +194,61 @@ public class ProntuarioBean {
         return ProntuarioController.getInstance().listarProntuarios();
     }
     
+    public List<Prontuario> listarProntuariosFiltrados(){
+        this.lista_filtrada = ProntuarioController.getInstance().relatorioProntuario(filtroDataInicial, filtroDataFinal, 
+                        filtroHoraInicial, filtroHoraFinal, filtroPaciente);
+        return this.lista_filtrada;
+    }
+    
     public String incluir(ServletRequest request){
         try{
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-            return u.getTipo().incluirProntuario(); 
+            if(u != null){
+                return u.getTipo().incluirProntuario();
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
-            return "/index";
-        }       
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
+            return "index.xhtml";
+        }      
     }
     
-    public String editar(ServletRequest request, Prontuario prontuarioTela){
+    public String editar(ServletRequest request, int id){
         try{
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-            Prontuario pBean = ProntuarioController.getInstance().findProntuario(prontuarioTela.getId());
-            preencherBean(pBean);
-            return u.getTipo().editarProntuario(id);
+            if(u != null){
+                Prontuario pBean = ProntuarioController.getInstance().findProntuario(id);
+                preencherBean(pBean);
+                return u.getTipo().editarProntuario();
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
-            return "/index";
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
+            return "index.xhtml";
         } 
     }
     
-    public String excluir(ServletRequest request, Prontuario p){
+    public String excluir(ServletRequest request, int id){
         try{
             HttpSession sess = ((HttpServletRequest) request).getSession(true);
             Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-            ProntuarioController.getInstance().excluirProntuario(p.getId());
-            return "MEDICO_consultaProntuario.xhtml";
+            ProntuarioController.getInstance().excluirProntuario(id);
+            if(u != null){
+                return "MEDICO_consultaProntuario.xhtml";
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
-            return "/index";
-        }         
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
+            return "index.xhtml";
+        }              
     }
     
     public String consultaRelatorios(ServletRequest request){
@@ -190,30 +258,49 @@ public class ProntuarioBean {
             if(u != null){
                 return u.getTipo().menuRelatorios();
             }else{
-                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado!"));
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
                 return "index.xhtml";
             }
         }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
             return "index.xhtml";
-        }
+        }  
     } 
     
     public String salvar(ServletRequest request){
-        HttpSession sess = ((HttpServletRequest) request).getSession(true);
-        Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
-        Paciente pacienteTela = PacienteController.getInstance().findPaciente(idPaciente);
-        ProntuarioController.getInstance().salvarProntuario(new Prontuario(pacienteTela,u,sintomas,diagnostico,prescricao,Utils.stringToDateTime(data+" "+hora)));
-        return "MEDICO_consultaProntuario.xhtml";
-    }
-    
-    public String atualizar(){
         try{
-            Paciente pacienteTela = PacienteController.getInstance().findPaciente(idPaciente);
-            ProntuarioController.getInstance().atualizarPaciente(new Prontuario(id,pacienteTela,sintomas,diagnostico,prescricao,Utils.stringToDateTime(data+" "+hora)));
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                Paciente pacienteTela = PacienteController.getInstance().findPaciente(idPaciente);
+                ProntuarioController.getInstance().salvarProntuario(new Prontuario(pacienteTela,u,sintomas,diagnostico,prescricao,Utils.stringToDateTime(data+" "+hora)));
+                return "MEDICO_consultaProntuario.xhtml";
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
         }catch(Exception e){
-            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage(e.getMessage()));
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
             return "index.xhtml";
         }
+    }
+    
+    public String atualizar(ServletRequest request){
+        try{
+            HttpSession sess = ((HttpServletRequest) request).getSession(true);
+            Usuario u = (Usuario) sess.getAttribute("UsuarioLogado");
+            if(u != null){
+                Paciente pacienteTela = PacienteController.getInstance().findPaciente(idPaciente);
+                ProntuarioController.getInstance().atualizarPaciente(new Prontuario(id,pacienteTela,sintomas,diagnostico,prescricao,Utils.stringToDateTime(data+" "+hora)));
+            }else{
+                FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Usuário não está logado"));
+                return "index.xhtml";
+            }
+        }catch(Exception e){
+            FacesContext.getCurrentInstance().addMessage("login:username", new FacesMessage("Erro: "+e.getMessage()));
+            return "index.xhtml";
+        }
+       
         return "MEDICO_consultaProntuario.xhtml";
     }
 }

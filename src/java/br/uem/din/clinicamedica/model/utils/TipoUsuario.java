@@ -121,14 +121,14 @@ public enum TipoUsuario implements menu{
     }
     
     public String menuRelatorios(){
-        return "MEDICO_consultaRelatorios.xhtml";
+        return "MEDICO_relatorioProntuario.xhtml";
     }
     
     public String incluirProntuario(){
         return "MEDICO_incluirProntuario.xhtml";
     }
     
-    public String editarProntuario(int id){
+    public String editarProntuario(){
         return "MEDICO_editarProntuario.xhtml";
     }
 }
